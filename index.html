@@ -201,6 +201,50 @@
         border-bottom: 0;
       }
 
+      .nav-group {
+        margin-bottom: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 253, 248, 0.72);
+        overflow: hidden;
+      }
+
+      .nav-group summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 42px;
+        padding: 0 12px;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 800;
+        list-style: none;
+      }
+
+      .nav-group summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .nav-group summary::after {
+        content: "+";
+        color: var(--accent-2);
+        font-weight: 900;
+      }
+
+      .nav-group[open] summary::after {
+        content: "-";
+      }
+
+      .nav-group .nav-list {
+        border-top: 1px solid var(--line);
+        padding: 8px;
+      }
+
+      .nav-group .nav-list a {
+        padding-left: 14px;
+      }
+
       .nav-title,
       .toc-title {
         margin: 0 0 12px;
@@ -743,43 +787,54 @@
     <div class="shell">
       <aside class="left-nav" aria-label="课程目录">
         <div class="nav-section">
-          <p class="nav-title">新手必读</p>
-          <ul class="nav-list">
-            <li><a href="#what-is-codex">Codex 是什么</a></li>
-            <li><a href="#choose-surface">选择入口</a></li>
-            <li><a href="#prepare">准备 3 样东西</a></li>
-            <li><a href="#install">安装与登录</a></li>
-            <li><a href="#first-task">第一次成功任务</a></li>
-            <li><a href="#screenshot-course">截图实操课</a></li>
-            <li><a href="#china-access">国内站使用教程</a></li>
-          </ul>
-        </div>
-        <div class="nav-section">
-          <p class="nav-title">核心工作法</p>
-          <ul class="nav-list">
-            <li><a href="#prompting">把需求说清楚</a></li>
-            <li><a href="#planning">先计划再动手</a></li>
-            <li><a href="#verification">验证与审查</a></li>
-            <li><a href="#threads">线程与并行</a></li>
-          </ul>
-        </div>
-        <div class="nav-section">
-          <p class="nav-title">进阶配置</p>
-          <ul class="nav-list">
-            <li><a href="#agents-md">AGENTS.md</a></li>
-            <li><a href="#config">config.toml 与权限</a></li>
-            <li><a href="#mcp">MCP 外部工具</a></li>
-            <li><a href="#skills">Skills 与插件</a></li>
-            <li><a href="#automations">自动化</a></li>
-          </ul>
-        </div>
-        <div class="nav-section">
-          <p class="nav-title">可复制材料</p>
-          <ul class="nav-list">
-            <li><a href="#prompt-library">提示词模板</a></li>
-            <li><a href="#faq">常见问题</a></li>
-            <li><a href="#sources">调研来源</a></li>
-          </ul>
+          <details class="nav-group" open>
+            <summary>01 新手入门</summary>
+            <ul class="nav-list">
+              <li><a href="#what-is-codex">Codex 是什么</a></li>
+              <li><a href="#choose-surface">选择入口</a></li>
+              <li><a href="#prepare">准备 3 样东西</a></li>
+              <li><a href="#install">安装与登录</a></li>
+              <li><a href="#first-task">第一次成功任务</a></li>
+              <li><a href="#screenshot-course">完整实操课</a></li>
+            </ul>
+          </details>
+          <details class="nav-group" open>
+            <summary>02 Codex 国内站</summary>
+            <ul class="nav-list">
+              <li><a href="#china-access">使用前先了解</a></li>
+              <li><a href="#china-start">注册、订阅与下载</a></li>
+              <li><a href="#china-config">CC-Switch 接入</a></li>
+              <li><a href="#china-first-task">第一次国内站任务</a></li>
+              <li><a href="#china-faq">常见问题</a></li>
+            </ul>
+          </details>
+          <details class="nav-group">
+            <summary>03 核心工作法</summary>
+            <ul class="nav-list">
+              <li><a href="#prompting">把需求说清楚</a></li>
+              <li><a href="#planning">先计划再动手</a></li>
+              <li><a href="#verification">验证与审查</a></li>
+              <li><a href="#threads">线程与并行</a></li>
+            </ul>
+          </details>
+          <details class="nav-group">
+            <summary>04 进阶配置</summary>
+            <ul class="nav-list">
+              <li><a href="#agents-md">AGENTS.md</a></li>
+              <li><a href="#config">config.toml 与权限</a></li>
+              <li><a href="#mcp">MCP 外部工具</a></li>
+              <li><a href="#skills">Skills 与插件</a></li>
+              <li><a href="#automations">自动化</a></li>
+            </ul>
+          </details>
+          <details class="nav-group">
+            <summary>05 模板与资料</summary>
+            <ul class="nav-list">
+              <li><a href="#prompt-library">提示词模板</a></li>
+              <li><a href="#faq">常见问题</a></li>
+              <li><a href="#sources">调研来源</a></li>
+            </ul>
+          </details>
         </div>
       </aside>
 
@@ -1145,53 +1200,85 @@ codex</code></pre>
           <section id="china-access">
             <h2>Codex 国内站使用教程</h2>
             <p>
-              你补充的截图里出现了国内访问入口、控制台、模型配置、用量面板和任务执行页面。它可以作为一节面向中文学员的“国内站上手课”：先帮学员理解入口和风险，再带他们完成登录、配置、发起任务和查看结果。
+              这一节讲国内用户如何用第三方国内站跑通 Codex：先确认入口和服务规则，再完成注册、订阅、客户端安装、CC-Switch 接入，最后用一个小任务验证配置是否可用。
             </p>
             <div class="callout">
-              <strong>重要提醒：</strong>
-              涉及第三方国内站点时，教程应避免承诺其官方身份、稳定性、价格或数据安全。账号、API Key、付款和私有代码都属于敏感信息，使用前要让学员自行确认服务来源、隐私政策和费用规则；能使用 OpenAI 官方 Codex 渠道时，优先使用官方渠道。
+              <strong>先说清楚：</strong>
+              国内站是第三方服务，不是 OpenAI 官方订阅。价格、额度、模型名、入口和可用性都可能变化；购买前以当前页面显示为准。账号、API Key、付款信息和私有代码都属于敏感信息，不要发到公开聊天、课程素材或仓库里。
             </div>
             <div class="grid-3">
               <div class="card">
-                <b>入口与购买</b>
+                <b>适合谁</b>
                 <p>
-                  飞书文档示例入口包括 <a href="https://codex.maynor1024.live/login">codex.maynor1024.live/login</a>，购买入口为 <a href="https://maynorai.jichiyun.sbs/buy/30">maynorai.jichiyun.sbs/buy/30</a>。国外网络可尝试 Cloudflare 入口，以当前可打开页面为准。
+                  适合被网络、手机号、官方支付或模型权限卡住，但想先体验 Codex 编程 Agent 和图像能力的用户。
                 </p>
               </div>
               <div class="card">
-                <b>订阅与 API key</b>
+                <b>先做什么</b>
                 <p>
-                  注册登录后选择按量或包月套餐，购买后新建 API key，再导入本地工具。不要把 key 发到群聊、截图或公开仓库。
+                  先用空目录和小任务验证流程，不要一开始连接公司仓库、主力账号或长期 Key。
                 </p>
               </div>
               <div class="card">
-                <b>适合人群</b>
+                <b>怎么判断成功</b>
                 <p>
-                  适合 Codex 小白、独立开发者、内容创作者和 AI 工具重度用户。不会写代码也可以用，但要从小任务开始。
+                  能登录、能生成 API Key、能在客户端发起任务、能看到结果和用量，就算第一阶段跑通。
                 </p>
               </div>
             </div>
-            <h3>用 CC-Switch 接入</h3>
+
+            <h3 id="china-start">注册、订阅与下载</h3>
             <div class="steps">
               <div class="step">
                 <span class="step-num">1</span>
                 <div>
-                  <h3>安装 cc-switch</h3>
-                  <p>按系统选择 Windows、Linux 或 macOS 安装包，安装后打开配置界面。</p>
+                  <h3>打开入口并注册</h3>
+                  <p>
+                    示例登录入口：<a href="https://codex.maynor1024.live/login">codex.maynor1024.live/login</a>。如果你在国外网络环境，也可以尝试 <a href="https://codex.chatgpt-plus.top/login">codex.chatgpt-plus.top/login</a>。打开后先确认域名、HTTPS 状态、登录方式和服务说明。
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-num">2</span>
+                <div>
+                  <h3>选择套餐或充值</h3>
+                  <p>
+                    购买入口示例：<a href="https://maynorai.jichiyun.sbs/buy/30">maynorai.jichiyun.sbs/buy/30</a>。购买前看清楚按量、包月、每日额度、支持模型、退款和售后规则。
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-num">3</span>
+                <div>
+                  <h3>下载客户端</h3>
+                  <p>
+                    Mac 可下载 <a href="https://persistent.oaistatic.com/codex-app-prod/Codex.dmg">Codex.dmg</a>；Windows 优先使用微软商店，也可按课程提供的安装包方式安装。下载来源变化时，以当前可访问页面为准。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h3 id="china-config">CC-Switch 接入</h3>
+            <div class="steps">
+              <div class="step">
+                <span class="step-num">1</span>
+                <div>
+                  <h3>新建 API Key</h3>
+                  <p>在国内站后台找到 API Key 管理页，新建一个专门给 Codex 使用的 Key。建议给它单独命名，方便以后停用或更换。</p>
                 </div>
               </div>
               <div class="step">
                 <span class="step-num">2</span>
                 <div>
                   <h3>填写 URL 和 Key</h3>
-                  <p>把国内站提供的接口地址和 API key 填入 cc-switch，保存前检查不要多复制空格。</p>
+                  <p>打开 CC-Switch，把国内站提供的接口地址和 API Key 填进去。保存前检查 URL、Key、空格和换行，复制错一个字符都会导致鉴权失败。</p>
                 </div>
               </div>
               <div class="step">
                 <span class="step-num">3</span>
                 <div>
-                  <h3>切换模型名称</h3>
-                  <p>按飞书文档把模型名改成 <code>gpt-5.5</code>。图像任务使用 GPTimage2 对应入口或模型配置。</p>
+                  <h3>选择模型</h3>
+                  <p>代码任务把模型名设置为 <code>gpt-5.5</code>；图像任务使用 GPTimage2 对应入口或模型配置。模型名称以站点后台实际显示为准。</p>
                 </div>
               </div>
             </div>
@@ -1213,7 +1300,11 @@ codex</code></pre>
                 </tr>
               </tbody>
             </table>
-            <h3>新手建议：先做小任务</h3>
+
+            <h3 id="china-first-task">第一次国内站任务</h3>
+            <p>
+              第一次不要直接让 Codex 改真实项目。建一个空文件夹，明确告诉它要做什么、不要碰什么、怎么验证。任务越小，越容易判断国内站、Key、模型和客户端是否配置正确。
+            </p>
             <pre><code>帮我修改首页文案
 帮我整理 README
 帮我加一个英文版页面
@@ -1222,151 +1313,101 @@ codex</code></pre>
 
             <div class="lesson-flow">
               <div class="lesson-item">
-                <span class="shot-label">国内 01</span>
+                <span class="shot-label">步骤 01</span>
                 <div>
-                  <h3>确认入口与账号状态</h3>
+                  <h3>确认账号和额度</h3>
                   <p>
-                    打开国内站首页后，先检查域名、登录状态、套餐或余额提示。不要在不确认来源的网站里输入主力账号密码、长期 API Key 或公司私有仓库信息。
+                    发任务前先看账号是否已登录、套餐或余额是否正常、模型是否可用。额度和计费信息只看当前后台，不要记死教程里的旧数字。
                   </p>
                   <ul>
-                    <li>确认浏览器地址栏域名和 HTTPS 状态。</li>
-                    <li>确认是否需要独立账号、邀请码、兑换码或余额。</li>
+                    <li>确认当前使用的是测试目录。</li>
+                    <li>确认没有上传敏感文件或长期凭据。</li>
                   </ul>
                 </div>
               </div>
 
               <div class="lesson-item">
-                <span class="shot-label">国内 02</span>
+                <span class="shot-label">步骤 02</span>
                 <div>
-                  <h3>进入控制台，找到 Codex 或代码智能体入口</h3>
+                  <h3>写清楚任务提示</h3>
                   <p>
-                    截图里的控制台和功能卡片适合讲“先找入口，不急着发任务”。让学员认识项目、模型、任务、日志、用量这些常见区域。
-                  </p>
-                  <ul>
-                    <li>如果站点提供多个产品，选择 Codex、代码助手、Agent 或开发者工具相关入口。</li>
-                    <li>记录入口位置，方便后续课程复现。</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="lesson-item">
-                <span class="shot-label">国内 03</span>
-                <div>
-                  <h3>配置模型和执行环境</h3>
-                  <p>
-                    如果页面允许选择模型、推理强度、联网、沙箱或工具权限，要先用保守配置完成第一课。不要一开始就打开所有权限。
-                  </p>
-                  <ul>
-                    <li>模型选择以站点实际可用项为准，不写死价格和额度。</li>
-                    <li>权限选择遵循最小可用原则：只给当前任务需要的能力。</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="lesson-item">
-                <span class="shot-label">国内 04</span>
-                <div>
-                  <h3>创建第一个练习项目</h3>
-                  <p>
-                    新手任务用空目录或公开示例最合适。课程里可以让学员创建一个“Codex 中文教程页”练习项目，而不是直接连接真实商业仓库。
-                  </p>
-                  <ul>
-                    <li>项目名写清楚，例如 <code>codex-guide-demo</code>。</li>
-                    <li>目标文件建议从 <code>index.html</code> 开始，便于马上预览。</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="lesson-item">
-                <span class="shot-label">国内 05</span>
-                <div>
-                  <h3>输入完整任务提示</h3>
-                  <p>
-                    国内站的输入框也要遵循同样的提示结构：目标、上下文、约束、完成标准。不要只写“帮我做一个网站”。
+                    国内站也要按“目标、上下文、约束、完成标准”来写。不要只写“帮我做一个网站”，否则模型很难判断边界。
                   </p>
                   <ul>
                     <li>目标：生成一个 Codex 入门教程页。</li>
-                    <li>约束：左侧课程目录，中间正文，右侧页内目录。</li>
-                    <li>完成：输出文件、说明打开方式、列出资料来源。</li>
+                    <li>约束：单文件 HTML，不读取账号、Key、余额等敏感信息。</li>
+                    <li>完成：说明生成文件、打开方式和验证结果。</li>
                   </ul>
                 </div>
               </div>
 
               <div class="lesson-item">
-                <span class="shot-label">国内 06</span>
+                <span class="shot-label">步骤 03</span>
                 <div>
-                  <h3>观察执行日志和用量</h3>
+                  <h3>观察执行过程</h3>
                   <p>
-                    截图里的终端输出、任务进度、额度区域都可以拿来教学。学员要学会看任务是否真的开始、是否报错、是否产生费用或消耗额度。
+                    执行时重点看三件事：任务有没有开始、有没有报错、有没有消耗额度。报错时保留完整错误文字，后续排查比只描述“失败了”更有效。
                   </p>
                   <ul>
-                    <li>记录报错原文，不要只截图一个红框。</li>
-                    <li>用量和计费信息变化快，页面只教“在哪里看”，不承诺固定价格。</li>
+                    <li>鉴权失败：优先检查 URL、Key 和模型名。</li>
+                    <li>额度失败：检查套餐、余额或每日限制。</li>
                   </ul>
                 </div>
               </div>
 
               <div class="lesson-item">
-                <span class="shot-label">国内 07</span>
+                <span class="shot-label">步骤 04</span>
                 <div>
-                  <h3>查看生成结果与文件差异</h3>
+                  <h3>检查生成结果</h3>
                   <p>
-                    如果站点提供文件树、差异视图或下载按钮，要让学员逐项检查：生成了哪些文件，是否包含预期内容，是否有无关改动。
+                    如果任务生成了文件，先检查文件名和内容是否符合要求，再打开页面或运行验证命令。不要只看模型回复“完成了”。
                   </p>
                   <ul>
-                    <li>先检查 <code>index.html</code> 是否存在。</li>
-                    <li>再检查导航锚点、教程正文和资料来源是否完整。</li>
+                    <li>页面类任务：打开 HTML 或预览地址。</li>
+                    <li>代码类任务：运行最相关的测试、构建或命令。</li>
                   </ul>
                 </div>
               </div>
 
               <div class="lesson-item">
-                <span class="shot-label">国内 08</span>
+                <span class="shot-label">步骤 05</span>
                 <div>
-                  <h3>预览页面并做最小验收</h3>
+                  <h3>把可复用要求保存下来</h3>
                   <p>
-                    能在线预览就用站内预览；不能预览就下载文件到本地打开。验收标准依旧是页面能打开、布局不乱、中文不乱码、链接能点击。
+                    如果某些要求每次都要说，比如“不要输出 API Key”“先说明改动范围”“最后列验证结果”，就写进项目的 <code>AGENTS.md</code> 或自己的提示词模板里。
                   </p>
                   <ul>
-                    <li>桌面端看三栏布局。</li>
-                    <li>手机宽度看是否单列、是否横向溢出。</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="lesson-item">
-                <span class="shot-label">国内 09</span>
-                <div>
-                  <h3>失败处理：从错误回到同一线程</h3>
-                  <p>
-                    国内站点可能遇到网络、额度、模型不可用、文件下载失败等问题。课程要教学生把错误信息贴回原线程，让 Codex 基于现场继续修。
-                  </p>
-                  <ul>
-                    <li>不要重复开很多新任务。</li>
-                    <li>每次只改一个变量，例如模型、权限、提示词或文件。</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="lesson-item">
-                <span class="shot-label">国内 10</span>
-                <div>
-                  <h3>保存课程资产和复盘</h3>
-                  <p>
-                    最后把任务提示、生成文件、错误截图、验证结果和经验总结保存下来。这个复盘材料就是后续制作视频课、图文课和模板库的素材。
-                  </p>
-                  <ul>
-                    <li>保留可公开截图时，先打码账号、余额、API Key 和仓库名。</li>
-                    <li>把“官方事实”和“个人经验”分开写，避免误导学员。</li>
+                    <li>固定流程写成模板。</li>
+                    <li>安全要求写成项目规则。</li>
                   </ul>
                 </div>
               </div>
             </div>
 
+            <h3 id="china-faq">国内站常见问题</h3>
+            <div class="grid-2">
+              <div class="card">
+                <b>它是官方订阅吗？</b>
+                <p>不是。它是第三方入口，适合解决国内访问和支付门槛。官方权益、限制和模型能力仍以 OpenAI 官方页面为准。</p>
+              </div>
+              <div class="card">
+                <b>需要海外手机号吗？</b>
+                <p>课程入口主打降低注册门槛，但具体验证规则可能随服务调整。遇到变化时，以当前页面提示为准。</p>
+              </div>
+              <div class="card">
+                <b>可以处理公司代码吗？</b>
+                <p>不建议一开始就处理公司私有代码。先用公开示例或练习目录跑通，确认服务条款、隐私规则和团队要求后再决定。</p>
+              </div>
+              <div class="card">
+                <b>失败了先查什么？</b>
+                <p>按顺序查：账号状态、套餐余额、API Key、接口 URL、模型名称、客户端配置、任务提示和当前网络。</p>
+              </div>
+            </div>
+
             <div class="prompt-card">
-              <b>这一课可复制的提示</b>
+              <b>国内站第一条可复制提示</b>
               <p>
-                我正在使用一个国内 Codex 入口练习。请先说明你能访问和修改哪些内容，再创建一个单文件中文教程页。页面要包含左侧目录、中间教程正文、右侧页内目录、资料来源和验证说明。不要读取或输出任何账号、Key、余额、私有仓库敏感信息。
+                我正在用一个空目录练习 Codex。请先说明你能访问和修改哪些内容，再创建一个单文件中文教程页。页面包含标题、三个步骤、一个代码块和资料来源。不要读取或输出任何账号、API Key、余额、付款信息或私有仓库内容。完成后说明文件位置、打开方式和验证结果。
               </p>
             </div>
           </section>
