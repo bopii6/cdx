@@ -245,6 +245,12 @@
         padding-left: 14px;
       }
 
+      .nav-group .nav-list a.sub-link {
+        padding-left: 28px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
       .nav-title,
       .toc-title {
         margin: 0 0 12px;
@@ -646,6 +652,35 @@
         padding: 20px;
       }
 
+      .section-outline {
+        margin: 20px 0;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        background: rgba(255, 253, 248, 0.88);
+      }
+
+      .section-outline b {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--ink);
+      }
+
+      .section-outline ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 18px;
+        margin: 0;
+        padding-left: 1.2em;
+      }
+
+      .section-outline a {
+        color: var(--accent-2);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
       .source-box a {
         color: var(--accent-2);
         text-decoration: underline;
@@ -808,13 +843,15 @@
               <li><a href="#china-faq">常见问题</a></li>
             </ul>
           </details>
-          <details class="nav-group">
-            <summary>03 核心工作法</summary>
+          <details class="nav-group" open>
+            <summary>03 Codex 指令保姆级教程</summary>
             <ul class="nav-list">
-              <li><a href="#prompting">把需求说清楚</a></li>
-              <li><a href="#planning">先计划再动手</a></li>
-              <li><a href="#verification">验证与审查</a></li>
-              <li><a href="#threads">线程与并行</a></li>
+              <li><a href="#slash-commands">Codex 指令保姆级教程</a></li>
+              <li><a class="sub-link" href="#slash-overview">先记一句话</a></li>
+              <li><a class="sub-link" href="#slash-command-set">10 条常用指令</a></li>
+              <li><a class="sub-link" href="#slash-sidefork">/side 与 /fork</a></li>
+              <li><a class="sub-link" href="#slash-workflow">第一次使用流程</a></li>
+              <li><a class="sub-link" href="#slash-practice">可复制提示</a></li>
             </ul>
           </details>
           <details class="nav-group">
@@ -1412,82 +1449,144 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="prompting">
-            <h2>把需求说清楚：四件套</h2>
+          <section id="slash-commands">
+            <h2>Codex 指令保姆级教程</h2>
             <p>
-              官方最佳实践把高质量任务提示拆成四个部分：目标、上下文、约束、完成标准。你不必每次都写长提示，但复杂任务最好按这个结构写。
-            </p>
-            <div class="grid-2">
-              <div class="card">
-                <b>目标 Goal</b>
-                <p>你到底想改什么、做什么、修什么。</p>
-              </div>
-              <div class="card">
-                <b>上下文 Context</b>
-                <p>相关文件、错误日志、接口文档、用户反馈。</p>
-              </div>
-              <div class="card">
-                <b>约束 Constraints</b>
-                <p>不要改哪些文件，要遵守什么风格，能不能加依赖。</p>
-              </div>
-              <div class="card">
-                <b>完成标准 Done when</b>
-                <p>测试通过、页面可打开、bug 不复现、输出格式正确。</p>
-              </div>
-            </div>
-            <pre><code>目标：把登录页表单改成两列布局，并保持移动端单列。
-上下文：相关文件是 src/pages/Login.tsx 和 src/styles/login.css。
-约束：不要引入新 UI 库，沿用现有颜色和间距变量。
-完成标准：运行 npm test，打开页面检查 390px 和 1440px 两个视口。</code></pre>
-          </section>
-
-          <section id="planning">
-            <h2>先计划再动手</h2>
-            <p>
-              任务越复杂，越应该让 Codex 先计划。计划不是拖慢速度，而是让它先读上下文、暴露假设、拆解风险，再开始改文件。Codex 的官方最佳实践也建议在复杂、模糊、难描述的任务上使用 Plan mode 或先要求它采访你。
+              这个话题整理自 Oldeng 的 X 文章。它的核心提醒很实用：Codex 不是单纯聊天机器人，更像坐在项目目录里的 AI 编程同事。普通 prompt 是让它干活，斜杠指令则是管理它怎么工作。
             </p>
             <div class="callout">
-              <strong>判断标准：</strong>
-              如果你自己也说不清要改哪些文件、怎么验收，先让 Codex 提问；如果你已经知道目标但担心范围过大，先让它列计划；如果只是改一个文案或单个样式，可以直接执行。
+              <strong>先记一句话：</strong>
+              <code>普通 prompt = 让 Codex 干什么活</code>，<code>斜杠指令 = 管理 Codex 这个工具</code>。指令必须放在输入开头；忘了有哪些指令，就先输入 <code>/</code> 看本机列表。
             </div>
-            <pre><code>请先不要写代码。先阅读相关文件，给我一个 5 步以内的实现计划。
-计划里标出你需要确认的问题、可能影响的文件、准备运行的验证命令。
-我确认后你再开始实现。</code></pre>
-          </section>
 
-          <section id="verification">
-            <h2>验证与审查</h2>
+            <div class="section-outline">
+              <b>本节大纲</b>
+              <ul>
+                <li><a href="#slash-overview">先记一句话</a></li>
+                <li><a href="#slash-command-set">新手先掌握这 10 条</a></li>
+                <li><a href="#slash-sidefork">/side 和 /fork 别混</a></li>
+                <li><a href="#slash-workflow">第一次用 Codex 的顺序</a></li>
+                <li><a href="#slash-practice">直接可复制的提示</a></li>
+              </ul>
+            </div>
+
+            <h3 id="slash-overview">先记一句话</h3>
             <p>
-              Codex 的质量来自闭环。不要只让它“写完”，要让它“证明写完”。证明可以是测试、lint、类型检查、浏览器检查、构建日志、手动复现步骤，或者 diff 审查。
+              <code>普通 prompt = 让 Codex 干什么活</code>，<code>斜杠指令 = 管理 Codex 这个工具</code>。指令必须放在输入开头；忘了有哪些指令，就先输入 <code>/</code> 看本机列表。
             </p>
-            <div class="grid-3">
+
+            <h3 id="slash-command-set">新手先掌握这 10 条</h3>
+            <div class="grid-2">
               <div class="card">
-                <b>代码层</b>
-                <p>单元测试、类型检查、格式化、lint、构建。</p>
+                <b><code>/init</code>：让 Codex 认识项目</b>
+                <p>第一次进入项目先生成或完善 <code>AGENTS.md</code>，把启动命令、测试命令、禁止修改目录和项目规矩写清楚。</p>
               </div>
               <div class="card">
-                <b>界面层</b>
-                <p>启动开发服务器，打开浏览器，检查不同视口和关键交互。</p>
+                <b><code>/status</code>：确认当前状态</b>
+                <p>查看模型、权限、目录、上下文等信息。担心改错目录、模型没切对、权限不确定时先看它。</p>
               </div>
               <div class="card">
-                <b>交付层</b>
-                <p>让 Codex 总结改动、列出验证结果、说明未验证的风险。</p>
+                <b><code>/model</code>：选择合适模型</b>
+                <p>改文案、小函数解释用快模型；大型重构、复杂 bug、陌生代码库分析、安全敏感改动用强模型。</p>
+              </div>
+              <div class="card">
+                <b><code>/permissions</code>：控制能做什么</b>
+                <p>新手、生产项目、老项目或没有 git 的目录，先保守授权。等你熟悉它的行为，再逐步放开。</p>
+              </div>
+              <div class="card">
+                <b><code>/plan</code>：大任务先想清楚</b>
+                <p>重构、迁移、性能优化、多文件修改和风险不确定任务，先让它读上下文、拆风险、出最小方案。</p>
+              </div>
+              <div class="card">
+                <b><code>/mention</code>：点名文件</b>
+                <p>只想分析某个报错文件、组件或配置时，直接把文件给它，避免它在整个项目里过度搜索。</p>
+              </div>
+              <div class="card">
+                <b><code>/diff</code>：看真实改动</b>
+                <p>Codex 的总结可能漏细节，diff 不会。每次改完先看新增、删除、未跟踪文件和实际代码变化。</p>
+              </div>
+              <div class="card">
+                <b><code>/review</code>：切到审查视角</b>
+                <p>提交前让它检查 bug、行为回归、缺测试、边界条件和安全风险。推荐先 <code>/diff</code> 再 <code>/review</code>。</p>
+              </div>
+              <div class="card">
+                <b><code>/compact</code>：压缩长对话</b>
+                <p>聊久了会慢、会贵、上下文会乱。压缩前可以明确要求保留结论、已改文件、剩余 bug 和测试失败信息。</p>
+              </div>
+              <div class="card">
+                <b><code>/resume</code>：继续历史任务</b>
+                <p>跨天开发、大项目迁移、长时间 debug、分阶段任务，回来后从历史会话继续，不用重新交代全部上下文。</p>
               </div>
             </div>
-            <pre><code>完成后请：
-1. 运行项目里最相关的测试或检查命令。
-2. 如果是页面改动，启动本地服务并用浏览器检查。
-3. 最后按“改动 / 验证 / 风险”三段总结。</code></pre>
-          </section>
 
-          <section id="threads">
-            <h2>线程、工作树与并行</h2>
-            <p>
-              Codex 里的 thread 可以理解为一个工作会话。一个线程适合处理一个连贯任务。长任务可以继续追问，也可以在上下文太长时压缩；不同方向的任务可以 fork 或新开线程。
-            </p>
-            <p>
-              并行是 Codex 的强项，但不要让两个线程同时改同一批文件。对真实项目，建议用 Git 分支或工作树隔离改动。Codex App 内置工作树支持，适合同时推进多个互不冲突的尝试。
-            </p>
+            <h3 id="slash-sidefork"><code>/side</code> 和 <code>/fork</code> 别混</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>指令</th>
+                  <th>适合场景</th>
+                  <th>不要拿来做什么</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>/side</code></td>
+                  <td>临时问一句、检查方案风险、解释概念，不想污染主线。</td>
+                  <td>复杂多轮讨论、长期保存实验路线、认真实现另一套方案。</td>
+                </tr>
+                <tr>
+                  <td><code>/fork</code></td>
+                  <td>开一条新路线，比较两个架构，保留主线同时试另一种实现。</td>
+                  <td>只是问一个小判断，或者没有能力区分主线和实验线时乱开分支。</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 id="slash-workflow">第一次用 Codex，照这个顺序走</h3>
+            <div class="steps">
+              <div class="step">
+                <span class="step-num">1</span>
+                <div>
+                  <h3>进入项目并初始化</h3>
+                  <p>运行 <code>codex</code> 后先用 <code>/init</code>，把项目规则写入 <code>AGENTS.md</code>。</p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-num">2</span>
+                <div>
+                  <h3>确认状态再读项目</h3>
+                  <p>用 <code>/status</code> 看当前目录和权限，然后要求它先读结构、启动命令、测试命令和危险目录，不要直接改。</p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-num">3</span>
+                <div>
+                  <h3>大任务先计划</h3>
+                  <p>用 <code>/plan</code> 描述问题，让它定位相关文件并给最小改动方案。你确认后再让它实现。</p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-num">4</span>
+                <div>
+                  <h3>改完必须验收</h3>
+                  <p>先 <code>/diff</code> 看真实改动，再 <code>/review</code> 做提交前审查，最后运行项目测试或打开页面检查。</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 id="slash-practice">直接可复制的提示</h3>
+            <pre><code>/plan 帮我修复登录页提交后 loading 状态不消失的问题。
+先定位相关文件，给出最小改动方案，不要直接改代码。
+
+按方案实现，保持改动尽量小。
+
+/diff
+/review</code></pre>
+
+            <div class="source-box">
+              <strong>来源：</strong>
+              <a href="https://x.com/dengdry/status/2052026438442725525">Oldeng：Codex 指令保姆级教程</a>。本站内容做了教程化改写，避免照搬原文；具体可用指令以你本地输入 <code>/</code> 后显示的列表为准。
+            </div>
           </section>
 
           <section id="agents-md">
@@ -1663,6 +1762,9 @@ codex mcp add context7 -- npx -y @upstash/context7-mcp
                 <li>
                   <a href="https://my.feishu.cn/wiki/Vjulwif06izNiMkPor0cM9uYn1e">飞书云文档：Codex 中国站使用教程</a>
                 </li>
+                <li>
+                  <a href="https://x.com/dengdry/status/2052026438442725525">Oldeng：Codex 指令保姆级教程</a>
+                </li>
               </ul>
             </div>
           </section>
@@ -1689,9 +1791,7 @@ codex mcp add context7 -- npx -y @upstash/context7-mcp
             <li><a href="#first-task">第一次任务</a></li>
             <li><a href="#screenshot-course">完整实操课</a></li>
             <li><a href="#china-access">国内站使用教程</a></li>
-            <li><a href="#prompting">提示四件套</a></li>
-            <li><a href="#planning">计划优先</a></li>
-            <li><a href="#verification">验证审查</a></li>
+            <li><a href="#slash-commands">Codex 指令保姆级教程</a></li>
             <li><a href="#agents-md">AGENTS.md</a></li>
             <li><a href="#mcp">MCP</a></li>
             <li><a href="#sources">资料来源</a></li>
