@@ -1,9 +1,28 @@
 # Cloudflare 自动部署
 
-这个仓库已经配置 GitHub Actions。以后只要推送到 `main` 分支，就会自动：
+这个仓库已经配置成 GitHub 优先的自动部署。以后只需要把修改推送到 GitHub 的 `main` 分支，不需要手动操作 Cloudflare。
 
-1. 运行 `node tests/validate-index.mjs`。
-2. 把 `index.html` 复制到 `dist/index.html`。
+## 推荐的 Cloudflare Pages 连接方式
+
+在 Cloudflare Pages 里连接 GitHub 仓库 `bopii6/cdx`，生产分支选择 `main`，构建配置填写：
+
+- Build command：`npm run build`
+- Build output directory：`dist`
+
+这样以后只要执行：
+
+```powershell
+git push origin main
+```
+
+Cloudflare 会从 GitHub 拉取最新代码，运行构建命令，并发布 `dist/index.html`。
+
+## GitHub Actions 兜底部署
+
+仓库也保留了 GitHub Actions 部署流程。推送到 `main` 分支后，它会自动：
+
+1. 运行 `npm run test`。
+2. 运行 `npm run build`，把 `index.html` 复制到 `dist/index.html`。
 3. 部署到 Cloudflare Pages 项目 `aicodex`。
 
 ## 需要在 GitHub 设置两个 Secret

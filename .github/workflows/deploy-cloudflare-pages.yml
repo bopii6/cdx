@@ -29,12 +29,10 @@ jobs:
           node-version: 22
 
       - name: Validate site
-        run: node tests/validate-index.mjs
+        run: npm run test
 
       - name: Prepare static output
-        run: |
-          mkdir -p dist
-          cp index.html dist/index.html
+        run: npm run build
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
