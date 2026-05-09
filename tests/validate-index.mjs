@@ -23,7 +23,7 @@ const required = [
   '<summary>01 新手入门</summary>',
   '<summary>02 Codex 国内站</summary>',
   '<summary>03 Codex 指令保姆级教程</summary>',
-  '<summary>04 进阶配置</summary>',
+  '<summary>04 Codex 项目实战</summary>',
   '<summary>05 模板与资料</summary>',
   'href="#china-start"',
   'href="#china-config"',
