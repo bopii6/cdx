@@ -10,19 +10,19 @@
     />
     <style>
       :root {
-        --bg: #f4efe6;
-        --surface: #fffaf0;
+        --bg: #f7f5f0;
+        --surface: #fbfaf7;
         --surface-strong: #ffffff;
-        --ink: #1f1a14;
-        --muted: #6f665b;
-        --line: #d9cbb8;
-        --accent: #9f5c1f;
-        --accent-2: #0f6f74;
-        --accent-3: #756033;
-        --gold: #b88a3a;
+        --ink: #171717;
+        --muted: #68645f;
+        --line: #ded8cf;
+        --accent: #8b5b22;
+        --accent-2: #146b70;
+        --accent-3: #3f5f55;
+        --gold: #9a6a2a;
         --code-bg: #141416;
         --code-ink: #f2efe8;
-        --shadow: 0 22px 70px rgba(48, 34, 16, 0.16);
+        --shadow: 0 18px 52px rgba(22, 18, 12, 0.08);
         --radius: 8px;
         --left-width: 300px;
         --right-width: 270px;
@@ -42,12 +42,7 @@
       body {
         margin: 0;
         color: var(--ink);
-        background:
-          radial-gradient(circle at 74% 8%, rgba(184, 138, 58, 0.18), transparent 27%),
-          linear-gradient(rgba(159, 92, 31, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(15, 111, 116, 0.045) 1px, transparent 1px),
-          var(--bg);
-        background-size: 36px 36px;
+        background: var(--bg);
         line-height: 1.72;
         letter-spacing: 0;
       }
@@ -78,7 +73,7 @@
         align-items: center;
         min-height: 72px;
         border-bottom: 1px solid var(--line);
-        background: rgba(255, 250, 240, 0.93);
+        background: rgba(251, 250, 247, 0.96);
         backdrop-filter: blur(14px);
       }
 
@@ -97,7 +92,7 @@
         height: 34px;
         border-radius: 7px;
         color: #fff;
-        background: linear-gradient(135deg, #161411, #3b2c18);
+        background: #171717;
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
       }
 
@@ -184,7 +179,7 @@
 
       .left-nav {
         border-right: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.74);
+        background: rgba(251, 250, 247, 0.82);
       }
 
       .nav-section {
@@ -201,7 +196,7 @@
         margin-bottom: 10px;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 253, 248, 0.72);
+        background: rgba(255, 255, 255, 0.72);
         overflow: hidden;
       }
 
@@ -274,7 +269,7 @@
       .nav-list a.active,
       .nav-list a:hover {
         color: var(--accent);
-        background: rgba(198, 93, 40, 0.09);
+        background: rgba(139, 91, 34, 0.08);
       }
 
       main {
@@ -283,18 +278,19 @@
       }
 
       .hero {
-        margin-bottom: 44px;
+        margin-bottom: 56px;
+        padding-top: 26px;
       }
 
       .hero::before {
         content: "PRIVATE CODEX BOOTCAMP";
         display: inline-flex;
         margin-bottom: 14px;
-        border: 1px solid rgba(184, 138, 58, 0.42);
+        border: 1px solid rgba(154, 106, 42, 0.28);
         border-radius: 999px;
         padding: 5px 11px;
-        color: #7d5b22;
-        background: rgba(255, 255, 255, 0.58);
+        color: var(--gold);
+        background: #ffffff;
         font-size: 12px;
         font-weight: 900;
         letter-spacing: 0.06em;
@@ -314,7 +310,7 @@
         content: "";
         width: 28px;
         height: 2px;
-        background: linear-gradient(90deg, var(--gold), var(--accent-2));
+        background: var(--accent-2);
       }
 
       h1,
@@ -329,30 +325,33 @@
       }
 
       h1 {
-        max-width: 780px;
-        font-size: clamp(38px, 6vw, 68px);
+        max-width: 860px;
+        font-size: clamp(42px, 5.2vw, 74px);
+        line-height: 1.08;
       }
 
       .lead {
-        max-width: 760px;
+        max-width: 800px;
         margin: 22px 0 0;
         color: #3a3128;
-        font-size: 19px;
+        font-size: 18px;
+        line-height: 1.85;
       }
 
       .value-strip {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
-        margin-top: 28px;
+        margin-top: 30px;
+        max-width: 860px;
       }
 
       .value-card {
-        border: 1px solid rgba(184, 138, 58, 0.34);
+        border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 16px;
-        background: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 12px 32px rgba(48, 34, 16, 0.08);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: none;
       }
 
       .value-card strong {
@@ -377,12 +376,11 @@
       }
 
       .terminal-visual {
-        margin-top: 36px;
+        max-width: 860px;
+        margin-top: 34px;
         border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: var(--radius);
-        background:
-          radial-gradient(circle at 76% 18%, rgba(198, 93, 40, 0.28), transparent 28%),
-          linear-gradient(135deg, #121213, #2b2418 48%, #182829);
+        background: linear-gradient(135deg, #141416, #202329);
         color: var(--code-ink);
         box-shadow: var(--shadow);
         overflow: hidden;
@@ -448,14 +446,12 @@
       }
 
       .premium-panel {
-        margin: 26px 0;
-        border: 1px solid rgba(184, 138, 58, 0.38);
+        margin: 26px 0 34px;
+        border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 22px;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 248, 232, 0.76)),
-          rgba(255, 255, 255, 0.76);
-        box-shadow: var(--shadow);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 16px 44px rgba(22, 18, 12, 0.06);
       }
 
       .premium-panel h3 {
@@ -472,9 +468,9 @@
       }
 
       .premium-grid div {
-        border-left: 3px solid var(--gold);
+        border-left: 3px solid var(--accent-2);
         padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.58);
+        background: rgba(247, 245, 240, 0.72);
       }
 
       .premium-grid b {
@@ -523,7 +519,7 @@
       .source-box {
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 253, 248, 0.84);
+        background: rgba(255, 255, 255, 0.78);
       }
 
       .callout {
@@ -554,7 +550,7 @@
         border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 18px;
-        background: rgba(255, 253, 248, 0.82);
+        background: rgba(255, 255, 255, 0.78);
       }
 
       .card b {
@@ -646,7 +642,7 @@
 
       th {
         color: var(--ink);
-        background: rgba(198, 93, 40, 0.08);
+        background: rgba(139, 91, 34, 0.08);
         font-size: 14px;
       }
 
@@ -690,7 +686,7 @@
         border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 16px;
-        background: rgba(255, 253, 248, 0.82);
+        background: rgba(255, 255, 255, 0.8);
       }
 
       .shot-label {
@@ -730,7 +726,7 @@
         border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 18px 20px;
-        background: rgba(255, 253, 248, 0.88);
+        background: rgba(255, 255, 255, 0.82);
       }
 
       .section-outline b {
