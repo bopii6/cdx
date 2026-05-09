@@ -146,6 +146,9 @@ const publicScreenshotWording = [
   "你补充的截图",
   "从截图提取",
   "复盘材料",
+  "微信公众号文章入口",
+  "https://mp.weixin.qq.com/s/Cp1f7KpEzZ-PqOI62dNF0Q",
+  "https://mp.weixin.qq.com/s/a6FCHSkZnimbpL2albBsaw",
 ].filter((text) => html.includes(text));
 
 if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 7 || forbiddenLayout.length || publicScreenshotWording.length) {
