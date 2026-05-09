@@ -214,8 +214,9 @@
         list-style: none;
       }
 
-      .nav-group[draggable="true"] summary {
+      .nav-group summary {
         cursor: grab;
+        touch-action: none;
       }
 
       .nav-group.dragging {
@@ -2145,7 +2146,6 @@ codex</code></pre>
           const originalTitle = summary.textContent.trim();
           const navId = slugifyNavTitle(originalTitle, index);
           group.dataset.navId = navId;
-          group.draggable = true;
           summary.innerHTML = `<span class="nav-label" title="双击改名，拖动排序"></span>`;
           summary.querySelector(".nav-label").textContent = preferences.titles?.[navId] || originalTitle;
         });
@@ -2179,40 +2179,67 @@ codex</code></pre>
       });
 
       let draggedGroup = null;
+      let dragStartY = 0;
+      let dragStarted = false;
+      let suppressSummaryClick = false;
+
+      const moveDraggedGroup = (clientY) => {
+        const siblings = getNavGroups().filter((group) => group !== draggedGroup);
+        const target = siblings.find((group) => {
+          const rect = group.getBoundingClientRect();
+          return clientY < rect.top + rect.height / 2;
+        });
+        navSection.insertBefore(draggedGroup, target || null);
+      };
+
+      const finishPointerDrag = () => {
+        if (!draggedGroup) return;
+        draggedGroup.classList.remove("dragging");
+        draggedGroup.querySelector("summary").releasePointerCapture?.(draggedGroup.dataset.pointerId);
+        draggedGroup = null;
+        dragStarted = false;
+        saveNavPreferences();
+      };
 
       getNavGroups().forEach((group) => {
-        group.addEventListener("dragstart", (event) => {
-          if (event.target.closest("summary")) {
-            draggedGroup = group;
-            group.classList.add("dragging");
-            event.dataTransfer.effectAllowed = "move";
-            event.dataTransfer.setData("text/plain", group.dataset.navId);
+        const summary = group.querySelector("summary");
+
+        summary.addEventListener("pointerdown", (event) => {
+          if (event.button !== 0 || event.target.closest("a") || event.target.closest('[contenteditable="true"]')) return;
+          draggedGroup = group;
+          dragStartY = event.clientY;
+          dragStarted = false;
+          group.dataset.pointerId = event.pointerId;
+          summary.setPointerCapture?.(event.pointerId);
+        });
+
+        summary.addEventListener("pointermove", (event) => {
+          if (draggedGroup !== group) return;
+          if (!dragStarted && Math.abs(event.clientY - dragStartY) < 6) return;
+          event.preventDefault();
+          dragStarted = true;
+          group.classList.add("dragging");
+          moveDraggedGroup(event.clientY);
+        });
+
+        summary.addEventListener("pointerup", (event) => {
+          if (dragStarted) {
+            event.preventDefault();
+            suppressSummaryClick = true;
+            window.setTimeout(() => {
+              suppressSummaryClick = false;
+            }, 0);
           }
+          finishPointerDrag();
         });
 
-        group.addEventListener("dragover", (event) => {
-          event.preventDefault();
-          if (!draggedGroup || draggedGroup === group) return;
-          group.classList.add("drop-target");
-          const rect = group.getBoundingClientRect();
-          const placeAfter = event.clientY > rect.top + rect.height / 2;
-          navSection.insertBefore(draggedGroup, placeAfter ? group.nextSibling : group);
-        });
+        summary.addEventListener("pointercancel", finishPointerDrag);
 
-        group.addEventListener("dragleave", () => {
-          group.classList.remove("drop-target");
-        });
-
-        group.addEventListener("drop", (event) => {
-          event.preventDefault();
-          group.classList.remove("drop-target");
-          saveNavPreferences();
-        });
-
-        group.addEventListener("dragend", () => {
-          getNavGroups().forEach((item) => item.classList.remove("dragging", "drop-target"));
-          draggedGroup = null;
-          saveNavPreferences();
+        summary.addEventListener("click", (event) => {
+          if (suppressSummaryClick) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
         });
 
         const label = group.querySelector(".nav-label");
