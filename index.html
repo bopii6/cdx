@@ -198,6 +198,7 @@
         border-radius: var(--radius);
         background: rgba(255, 255, 255, 0.72);
         overflow: hidden;
+        transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
       }
 
       .nav-group summary {
@@ -211,6 +212,33 @@
         font-size: 14px;
         font-weight: 800;
         list-style: none;
+      }
+
+      .nav-group[draggable="true"] summary {
+        cursor: grab;
+      }
+
+      .nav-group.dragging {
+        opacity: 0.58;
+        border-color: var(--accent-2);
+        box-shadow: 0 14px 34px rgba(22, 18, 12, 0.12);
+      }
+
+      .nav-group.drop-target {
+        transform: translateY(2px);
+        border-color: var(--accent-2);
+      }
+
+      .nav-label {
+        min-width: 0;
+        outline: 0;
+        border-radius: 6px;
+        padding: 2px 4px;
+      }
+
+      .nav-label[contenteditable="true"] {
+        background: rgba(202, 104, 43, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(202, 104, 43, 0.28);
       }
 
       .nav-group summary::-webkit-details-marker {
@@ -2075,8 +2103,65 @@ codex</code></pre>
 
     <script>
       const searchInput = document.querySelector("#site-search");
-      const navLinks = [...document.querySelectorAll(".left-nav a")];
       const sections = [...document.querySelectorAll("article section[id]")];
+      const navSection = document.querySelector(".nav-section");
+      const navStorageKey = "codexGuideNavPreferences";
+
+      const getNavGroups = () => [...document.querySelectorAll(".nav-group")];
+
+      const slugifyNavTitle = (text, index) =>
+        `nav-${index}-${text
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 42)}`;
+
+      const loadNavPreferences = () => {
+        try {
+          return JSON.parse(localStorage.getItem(navStorageKey)) || {};
+        } catch {
+          return {};
+        }
+      };
+
+      const saveNavPreferences = () => {
+        const groups = getNavGroups();
+        const preferences = {
+          order: groups.map((group) => group.dataset.navId),
+          titles: Object.fromEntries(
+            groups.map((group) => [group.dataset.navId, group.querySelector(".nav-label").textContent.trim()]),
+          ),
+        };
+        localStorage.setItem(navStorageKey, JSON.stringify(preferences));
+      };
+
+      const setupEditableNav = () => {
+        const preferences = loadNavPreferences();
+        const groups = getNavGroups();
+
+        groups.forEach((group, index) => {
+          const summary = group.querySelector("summary");
+          const originalTitle = summary.textContent.trim();
+          const navId = slugifyNavTitle(originalTitle, index);
+          group.dataset.navId = navId;
+          group.draggable = true;
+          summary.innerHTML = `<span class="nav-label" title="双击改名，拖动排序"></span>`;
+          summary.querySelector(".nav-label").textContent = preferences.titles?.[navId] || originalTitle;
+        });
+
+        if (preferences.order?.length) {
+          const groupById = new Map(getNavGroups().map((group) => [group.dataset.navId, group]));
+          preferences.order.forEach((id) => {
+            const group = groupById.get(id);
+            if (group) navSection.appendChild(group);
+          });
+        }
+      };
+
+      setupEditableNav();
+
+      const navLinks = [...document.querySelectorAll(".left-nav a")];
 
       searchInput.addEventListener("input", (event) => {
         const query = event.target.value.trim().toLowerCase();
@@ -2091,6 +2176,68 @@ codex</code></pre>
           event.preventDefault();
           searchInput.focus();
         }
+      });
+
+      let draggedGroup = null;
+
+      getNavGroups().forEach((group) => {
+        group.addEventListener("dragstart", (event) => {
+          if (event.target.closest("summary")) {
+            draggedGroup = group;
+            group.classList.add("dragging");
+            event.dataTransfer.effectAllowed = "move";
+            event.dataTransfer.setData("text/plain", group.dataset.navId);
+          }
+        });
+
+        group.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          if (!draggedGroup || draggedGroup === group) return;
+          group.classList.add("drop-target");
+          const rect = group.getBoundingClientRect();
+          const placeAfter = event.clientY > rect.top + rect.height / 2;
+          navSection.insertBefore(draggedGroup, placeAfter ? group.nextSibling : group);
+        });
+
+        group.addEventListener("dragleave", () => {
+          group.classList.remove("drop-target");
+        });
+
+        group.addEventListener("drop", (event) => {
+          event.preventDefault();
+          group.classList.remove("drop-target");
+          saveNavPreferences();
+        });
+
+        group.addEventListener("dragend", () => {
+          getNavGroups().forEach((item) => item.classList.remove("dragging", "drop-target"));
+          draggedGroup = null;
+          saveNavPreferences();
+        });
+
+        const label = group.querySelector(".nav-label");
+        label.addEventListener("dblclick", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          label.setAttribute("contenteditable", "true");
+          label.focus();
+          window.getSelection().selectAllChildren(label);
+        });
+        label.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            label.blur();
+          }
+          if (event.key === "Escape") {
+            label.blur();
+          }
+        });
+        label.addEventListener("blur", () => {
+          const fallback = group.dataset.navId.replace(/^nav-\d+-/, "") || "未命名目录";
+          label.textContent = label.textContent.trim() || fallback;
+          label.removeAttribute("contenteditable");
+          saveNavPreferences();
+        });
       });
 
       const setActive = (id) => {
