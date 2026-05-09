@@ -10,18 +10,19 @@
     />
     <style>
       :root {
-        --bg: #f7f4ef;
-        --surface: #fffdf8;
+        --bg: #f4efe6;
+        --surface: #fffaf0;
         --surface-strong: #ffffff;
-        --ink: #202124;
-        --muted: #68635e;
-        --line: #ded8cf;
-        --accent: #c65d28;
-        --accent-2: #126d78;
-        --accent-3: #4e654a;
-        --code-bg: #17191f;
+        --ink: #1f1a14;
+        --muted: #6f665b;
+        --line: #d9cbb8;
+        --accent: #9f5c1f;
+        --accent-2: #0f6f74;
+        --accent-3: #756033;
+        --gold: #b88a3a;
+        --code-bg: #141416;
         --code-ink: #f2efe8;
-        --shadow: 0 16px 50px rgba(39, 35, 29, 0.1);
+        --shadow: 0 22px 70px rgba(48, 34, 16, 0.16);
         --radius: 8px;
         --left-width: 300px;
         --right-width: 270px;
@@ -42,8 +43,9 @@
         margin: 0;
         color: var(--ink);
         background:
-          linear-gradient(rgba(198, 93, 40, 0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(18, 109, 120, 0.04) 1px, transparent 1px),
+          radial-gradient(circle at 74% 8%, rgba(184, 138, 58, 0.18), transparent 27%),
+          linear-gradient(rgba(159, 92, 31, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 111, 116, 0.045) 1px, transparent 1px),
           var(--bg);
         background-size: 36px 36px;
         line-height: 1.72;
@@ -76,7 +78,7 @@
         align-items: center;
         min-height: 72px;
         border-bottom: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.93);
+        background: rgba(255, 250, 240, 0.93);
         backdrop-filter: blur(14px);
       }
 
@@ -95,7 +97,7 @@
         height: 34px;
         border-radius: 7px;
         color: #fff;
-        background: var(--code-bg);
+        background: linear-gradient(135deg, #161411, #3b2c18);
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
       }
 
@@ -284,12 +286,26 @@
         margin-bottom: 44px;
       }
 
+      .hero::before {
+        content: "PRIVATE CODEX BOOTCAMP";
+        display: inline-flex;
+        margin-bottom: 14px;
+        border: 1px solid rgba(184, 138, 58, 0.42);
+        border-radius: 999px;
+        padding: 5px 11px;
+        color: #7d5b22;
+        background: rgba(255, 255, 255, 0.58);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+      }
+
       .eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         margin-bottom: 18px;
-        color: var(--accent);
+        color: var(--gold);
         font-size: 13px;
         font-weight: 800;
       }
@@ -298,7 +314,7 @@
         content: "";
         width: 28px;
         height: 2px;
-        background: var(--accent);
+        background: linear-gradient(90deg, var(--gold), var(--accent-2));
       }
 
       h1,
@@ -320,8 +336,37 @@
       .lead {
         max-width: 760px;
         margin: 22px 0 0;
-        color: #3c3935;
+        color: #3a3128;
         font-size: 19px;
+      }
+
+      .value-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .value-card {
+        border: 1px solid rgba(184, 138, 58, 0.34);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 12px 32px rgba(48, 34, 16, 0.08);
+      }
+
+      .value-card strong {
+        display: block;
+        color: var(--ink);
+        font-size: 20px;
+        line-height: 1.25;
+      }
+
+      .value-card span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
       }
 
       .meta-row {
@@ -337,7 +382,7 @@
         border-radius: var(--radius);
         background:
           radial-gradient(circle at 76% 18%, rgba(198, 93, 40, 0.28), transparent 28%),
-          linear-gradient(135deg, #15171d, #262b2f 54%, #1c2324);
+          linear-gradient(135deg, #121213, #2b2418 48%, #182829);
         color: var(--code-ink);
         box-shadow: var(--shadow);
         overflow: hidden;
@@ -400,6 +445,45 @@
         border-radius: 7px;
         padding: 14px;
         background: rgba(255, 255, 255, 0.06);
+      }
+
+      .premium-panel {
+        margin: 26px 0;
+        border: 1px solid rgba(184, 138, 58, 0.38);
+        border-radius: var(--radius);
+        padding: 22px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 248, 232, 0.76)),
+          rgba(255, 255, 255, 0.76);
+        box-shadow: var(--shadow);
+      }
+
+      .premium-panel h3 {
+        margin-top: 0;
+        font-family: inherit;
+        font-size: 20px;
+      }
+
+      .premium-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .premium-grid div {
+        border-left: 3px solid var(--gold);
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.58);
+      }
+
+      .premium-grid b {
+        display: block;
+      }
+
+      .premium-grid span {
+        color: var(--muted);
+        font-size: 13px;
       }
 
       .output-card b {
@@ -742,6 +826,8 @@
 
         .grid-2,
         .grid-3,
+        .value-strip,
+        .premium-grid,
         .output-grid {
           grid-template-columns: 1fr;
         }
@@ -765,8 +851,8 @@
       <a class="brand" href="#top" aria-label="回到顶部">
         <span class="brand-mark">Cx</span>
         <span>
-          Codex 中文实操指南
-          <small>从第一次打开到稳定工作流</small>
+          Codex 项目实战训练营
+          <small>直播带练 · 项目交付 · 复盘升级</small>
         </span>
       </a>
       <label class="search" for="site-search">
@@ -839,16 +925,30 @@
       <main id="top">
         <article>
           <section class="hero">
-            <div class="eyebrow">2026-05-07 调研版</div>
-            <h1>零基础照着做：把 Codex 跑起来，并变成你的开发搭档</h1>
+            <div class="eyebrow">付费学员专属路线</div>
+            <h1>Codex 项目实战训练营：把 AI 编程变成可展示的业务资产</h1>
             <p class="lead">
-              这是一份面向中文用户的 Codex 课程草稿。页面结构参考你喜欢的教程站：
-              左侧是课程地图，中间是完整教程。内容先按官方文档、帮助中心和开源仓库整理，后续可以继续加入你的经验、案例和视频。
+              这不是一份普通操作手册，而是一套直播带练的交付路线。学员会跟着你从环境、提示、验证到发布，一步一步做出能展示、能复盘、能继续卖服务的 Codex 项目。
             </p>
             <div class="meta-row">
-              <span class="pill">适合：第一次接触 Codex</span>
-              <span class="pill">目标：完成第一条可验证任务</span>
-              <span class="pill">形态：单文件静态教程页</span>
+              <span class="pill">6 个可展示项目</span>
+              <span class="pill">直播带练，不只看教程</span>
+              <span class="pill">每一步都有交付物</span>
+              <span class="pill">席位制学习路径</span>
+            </div>
+            <div class="value-strip">
+              <div class="value-card">
+                <strong>从 0 到可演示</strong>
+                <span>不是讲概念，而是做出页面、小程序、视频脚本和 PPT。</span>
+              </div>
+              <div class="value-card">
+                <strong>从提示到验收</strong>
+                <span>每个项目都包含提示词、执行过程、验证方法和复盘标准。</span>
+              </div>
+              <div class="value-card">
+                <strong>从作品到业务</strong>
+                <span>实战项目围绕获客、展示、交付和成交表达设计。</span>
+              </div>
             </div>
 
             <div class="terminal-visual" aria-label="Codex 工作流示意">
@@ -871,11 +971,11 @@
                   </div>
                   <div class="output-card">
                     <b>做修改</b>
-                    <span>编辑文件，运行命令，保留证据。</span>
+                    <span>编辑文件，运行命令，保留验证证据。</span>
                   </div>
                   <div class="output-card">
                     <b>交付</b>
-                    <span>说明改了什么，验证了什么。</span>
+                    <span>交付结果、风险和下一轮升级方向。</span>
                   </div>
                 </div>
               </div>
@@ -1551,6 +1651,26 @@ codex</code></pre>
           </section>
 
           <section id="project-browser-control">
+            <div class="premium-panel">
+              <h3>第 04 章不是资料目录，是直播课的核心成交资产</h3>
+              <p>
+                这一章把 6 个可展示项目拆成学员能跟做的交付链路。每个项目都要讲清目标、提示词、执行、验收和复盘，让观众感觉买到的是一套项目生产系统，而不是几条操作步骤。
+              </p>
+              <div class="premium-grid">
+                <div>
+                  <b>直播带练</b>
+                  <span>你现场操作，学员同步看到每一步为什么这样做。</span>
+                </div>
+                <div>
+                  <b>交付物</b>
+                  <span>每个项目都有可展示成果，不停留在理论。</span>
+                </div>
+                <div>
+                  <b>席位节奏</b>
+                  <span>按项目推进，适合做限时开放和阶段陪跑。</span>
+                </div>
+              </div>
+            </div>
             <h2>操控浏览器：让 Codex 帮你看页面、点页面、验页面</h2>
             <p>
               这个项目适合做成第一篇实战文章：目标不是讲浏览器概念，而是让学员看到 Codex 如何打开本地页面、检查按钮、验证画面、定位布局问题，并把发现转成可执行修改。
