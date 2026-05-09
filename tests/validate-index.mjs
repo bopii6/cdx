@@ -44,6 +44,7 @@ const required = [
   'href="#ultimate-local-files"',
   'href="#ultimate-memory-skills"',
   'href="#ultimate-plugins-automation"',
+  '<summary>06 一句话安装 Hermes Agent，微信全能秘书</summary>',
   'href="#hermes-agent-secretary"',
   'href="#hermes-agent-install"',
   'href="#hermes-agent-wechat"',
@@ -93,7 +94,7 @@ const required = [
   "扫码绑定",
   "重要的微信消息",
   "主力电脑",
-  '<summary>06 模板与资料</summary>',
+  '<summary>07 模板与资料</summary>',
   'href="#china-start"',
   'href="#china-config"',
   'href="#china-first-task"',
@@ -147,12 +148,12 @@ const publicScreenshotWording = [
   "复盘材料",
 ].filter((text) => html.includes(text));
 
-if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 6 || forbiddenLayout.length || publicScreenshotWording.length) {
+if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 7 || forbiddenLayout.length || publicScreenshotWording.length) {
   console.error("index.html validation failed");
   if (missing.length) console.error("Missing content:", missing.join(", "));
   if (brokenAnchors.length) console.error("Broken anchors:", brokenAnchors.join(", "));
   if (duplicateIds.length) console.error("Duplicate section ids:", duplicateIds.join(", "));
-  if (navGroupCount !== 6) console.error("Expected 6 nav groups, found:", navGroupCount);
+  if (navGroupCount !== 7) console.error("Expected 7 nav groups, found:", navGroupCount);
   if (forbiddenLayout.length) console.error("Forbidden right-side layout:", forbiddenLayout.join(", "));
   if (publicScreenshotWording.length) console.error("Forbidden screenshot-source wording:", publicScreenshotWording.join(", "));
   process.exit(1);
