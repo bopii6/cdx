@@ -914,6 +914,9 @@
               <li><a href="#ultimate-local-files">文件与 Project</a></li>
               <li><a href="#ultimate-memory-skills">记忆与 Skill</a></li>
               <li><a href="#ultimate-plugins-automation">插件、生成与自动化</a></li>
+              <li><a href="#hermes-agent-secretary">Hermes 微信全能秘书</a></li>
+              <li><a href="#hermes-agent-install">Hermes 安装步骤</a></li>
+              <li><a href="#hermes-agent-wechat">微信绑定与安全</a></li>
             </ul>
           </details>
           <details class="nav-group">
@@ -1894,6 +1897,83 @@ codex</code></pre>
             <p>
               Codex 不是“更好的 ChatGPT”。ChatGPT 是云端对话工具，适合问问题、讨论思路、改写文本；Codex 是本地化 Agent 超级应用，适合处理本地文件、构建可复用工作流程、控制浏览器和电脑，并把成果留在你的项目里。如果只是偶尔问问题，用 ChatGPT 就够了；如果要把 AI 接进真实工作流，Codex 才是主要工具。
             </p>
+          </section>
+
+          <section id="hermes-agent-secretary">
+            <div class="premium-panel">
+              <h3>一句话安装 Hermes Agent，微信全能秘书</h3>
+              <p>
+                这一篇基于刘小排的文章《一句话安装Hermes Agent，从此享有全能秘书》整理。文章的核心不是讲一个复杂部署教程，而是展示 Codex 可以直接帮你安装和配置 Hermes Agent，并通过微信 Clawdbot 变成一个能处理微信消息的个人秘书。
+              </p>
+              <div class="premium-grid">
+                <div>
+                  <b>定位</b>
+                  <span>Hermes 相比 OpenClaw 更偏通用Agent，稳定、记忆能力强，并且能够自我进化。</span>
+                </div>
+                <div>
+                  <b>安装方式</b>
+                  <span>在 Codex 里选中一个空文件夹，给一句安装提示词，让 Codex 自己完成配置和测试。</span>
+                </div>
+                <div>
+                  <b>使用场景</b>
+                  <span>绑定微信后，可以询问最近有哪些重要的微信消息需要回复和关注。</span>
+                </div>
+              </div>
+            </div>
+            <h2>Hermes Agent 是什么</h2>
+            <p>
+              Hermes 是一个更适合大多数人使用的通用 Agent。原文把它和小龙虾 OpenClaw 做了对比：OpenClaw 更像某个具体方向的工具，Hermes 则更像可以长期陪伴、处理多类任务的全能秘书。它的关键特点是发挥稳定、记忆能力强、能够自我进化。
+            </p>
+            <p>
+              文章里的典型场景是微信消息管理。亦仁问 Hermes：“刘小排最近一周都说过啥？”Hermes 可以把共同微信群里刘小排说过的话总结出来。这说明它不只是一个聊天机器人，而是能围绕真实信息源做读取、总结和提醒的 Agent。
+            </p>
+          </section>
+
+          <section id="hermes-agent-install">
+            <h2>一句话安装 Hermes Agent</h2>
+            <p>
+              文章强调：安装 Hermes 并不难，关键是先准备好前提条件，然后把安装、配置、测试交给 Codex。
+            </p>
+            <div class="grid two">
+              <div class="card">
+                <h3>前提条件</h3>
+                <p>需要配置好海外的网络环境；已经安装 Codex；并且购买了 ChatGPT Plus/Pro 套餐。</p>
+              </div>
+              <div class="card">
+                <h3>Codex 设置</h3>
+                <p>在电脑上随便建一个文件夹，在 Codex 中选中这个文件夹；权限选择完全访问权限，模型选择 GPT-5.5 xhigh。</p>
+              </div>
+            </div>
+            <p>
+              原文给出的核心提示词是：
+            </p>
+            <pre><code>在当前文件夹安装Hermes Agent，
+让它使用我系统中的codex的GPT-5.5 xhigh模型
+然后配置好，测试通过，并且让我扫码就可以直接绑定微信Clawdbot</code></pre>
+            <p>
+              发出这条指令后，Codex 会在当前文件夹里完成 Hermes 的安装、配置和测试。原文提到整个过程大概需要 10 分钟，完成后会出现扫码绑定界面。
+            </p>
+          </section>
+
+          <section id="hermes-agent-wechat">
+            <h2>扫码绑定微信 Clawdbot</h2>
+            <p>
+              Hermes 安装完成后，下一步是用微信扫码绑定 Clawdbot。绑定后，它就可以作为微信里的 Agent 入口使用。原文还提到，微信 Clawdbot 可以改头像、改名字，所以它可以伪装成一个更自然的微信联系人形态。
+            </p>
+            <p>
+              绑定之后，可以直接问 Hermes：“我有哪些重要的微信消息需要回复和关注？”这类问题体现的是它作为微信全能秘书的价值：不是替你泛泛聊天，而是帮你从消息流里找到重点，整理需要处理的事项。
+            </p>
+            <div class="callout">
+              <strong>安全提醒：</strong>
+              如果你是在主力电脑安装 Agent，一定要重视安全问题。原文建议直接问 Hermes：“目前运行环境是主力电脑机，有很多机密文件，要怎么才能够又安全又方便？”让它给出隔离、权限和使用方案，再选择一个适合自己的方案执行。
+            </div>
+            <p>
+              文章最后也提醒，读取和总结微信消息存在一定风险，不适合大范围公开传播。这个项目真正要理解的是：Codex 不只是写代码工具，它可以成为安装、配置和测试其他 Agent 的入口；而 Hermes 则把 Agent 能力延伸到微信消息管理场景里。
+            </p>
+            <div class="source-box">
+              <strong>微信公众号文章入口：</strong>
+              <a href="https://mp.weixin.qq.com/s/a6FCHSkZnimbpL2albBsaw">https://mp.weixin.qq.com/s/a6FCHSkZnimbpL2albBsaw</a>
+            </div>
           </section>
 
           <section id="prompt-library">
