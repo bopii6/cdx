@@ -39,7 +39,7 @@ const required = [
   "直播带练",
   "交付物",
   "席位",
-  '<summary>05 Codex 终极实战</summary>',
+  '<summary>Agent 超级应用 Codex，七大核心能力拆解</summary>',
   'href="#ultimate-codex-project"',
   'href="#ultimate-local-files"',
   'href="#ultimate-memory-skills"',
