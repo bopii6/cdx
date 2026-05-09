@@ -39,7 +39,21 @@ const required = [
   "直播带练",
   "交付物",
   "席位",
-  '<summary>05 模板与资料</summary>',
+  '<summary>05 Codex 终极实战</summary>',
+  'href="#ultimate-codex-project"',
+  'href="#ultimate-project-frame"',
+  'href="#ultimate-delivery-loop"',
+  'href="#ultimate-live-script"',
+  'id="ultimate-codex-project"',
+  'id="ultimate-project-frame"',
+  'id="ultimate-delivery-loop"',
+  'id="ultimate-live-script"',
+  "Codex 终极实战",
+  "从文章到项目",
+  "微信公众号文章",
+  "直播拆解",
+  "可交付成果",
+  '<summary>06 模板与资料</summary>',
   'href="#china-start"',
   'href="#china-config"',
   'href="#china-first-task"',
@@ -93,12 +107,12 @@ const publicScreenshotWording = [
   "复盘材料",
 ].filter((text) => html.includes(text));
 
-if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 5 || forbiddenLayout.length || publicScreenshotWording.length) {
+if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 6 || forbiddenLayout.length || publicScreenshotWording.length) {
   console.error("index.html validation failed");
   if (missing.length) console.error("Missing content:", missing.join(", "));
   if (brokenAnchors.length) console.error("Broken anchors:", brokenAnchors.join(", "));
   if (duplicateIds.length) console.error("Duplicate section ids:", duplicateIds.join(", "));
-  if (navGroupCount !== 5) console.error("Expected 5 nav groups, found:", navGroupCount);
+  if (navGroupCount !== 6) console.error("Expected 6 nav groups, found:", navGroupCount);
   if (forbiddenLayout.length) console.error("Forbidden right-side layout:", forbiddenLayout.join(", "));
   if (publicScreenshotWording.length) console.error("Forbidden screenshot-source wording:", publicScreenshotWording.join(", "));
   process.exit(1);
