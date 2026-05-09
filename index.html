@@ -72,7 +72,7 @@
         top: 0;
         z-index: 20;
         display: grid;
-        grid-template-columns: var(--left-width) minmax(0, 1fr) var(--right-width);
+        grid-template-columns: var(--left-width) minmax(0, 1fr) auto;
         align-items: center;
         min-height: 72px;
         border-bottom: 1px solid var(--line);
@@ -165,15 +165,14 @@
 
       .shell {
         display: grid;
-        grid-template-columns: var(--left-width) minmax(0, 860px) var(--right-width);
+        grid-template-columns: var(--left-width) minmax(0, 980px);
         gap: 0;
         align-items: start;
         max-width: 1530px;
         margin: 0 auto;
       }
 
-      .left-nav,
-      .right-toc {
+      .left-nav {
         position: sticky;
         top: 72px;
         height: calc(100vh - 72px);
@@ -184,11 +183,6 @@
       .left-nav {
         border-right: 1px solid var(--line);
         background: rgba(255, 253, 248, 0.74);
-      }
-
-      .right-toc {
-        border-left: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.58);
       }
 
       .nav-section {
@@ -251,16 +245,14 @@
         font-size: 13px;
       }
 
-      .nav-title,
-      .toc-title {
+      .nav-title {
         margin: 0 0 12px;
         color: var(--ink);
         font-size: 15px;
         font-weight: 800;
       }
 
-      .nav-list,
-      .toc-list {
+      .nav-list {
         display: grid;
         gap: 4px;
         margin: 0;
@@ -268,8 +260,7 @@
         list-style: none;
       }
 
-      .nav-list a,
-      .toc-list a {
+      .nav-list a {
         display: block;
         border-radius: 6px;
         padding: 7px 9px;
@@ -279,9 +270,7 @@
       }
 
       .nav-list a.active,
-      .toc-list a.active,
-      .nav-list a:hover,
-      .toc-list a:hover {
+      .nav-list a:hover {
         color: var(--accent);
         background: rgba(198, 93, 40, 0.09);
       }
@@ -845,34 +834,6 @@
         text-underline-offset: 3px;
       }
 
-      .progress-card {
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 16px;
-        background: var(--surface-strong);
-      }
-
-      .progress-card p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 13px;
-      }
-
-      .meter {
-        height: 8px;
-        margin: 12px 0;
-        border-radius: 999px;
-        background: #ede6dc;
-        overflow: hidden;
-      }
-
-      .meter span {
-        display: block;
-        width: 68%;
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      }
-
       .footer-note {
         margin-top: 64px;
         border-top: 1px solid var(--line);
@@ -895,8 +856,7 @@
           grid-template-columns: var(--left-width) minmax(0, 1fr);
         }
 
-        .top-actions,
-        .right-toc {
+        .top-actions {
           display: none;
         }
 
@@ -1038,11 +998,12 @@
           <details class="nav-group">
             <summary>04 Codex 项目实战</summary>
             <ul class="nav-list">
-              <li><a href="#agents-md">AGENTS.md</a></li>
-              <li><a href="#config">config.toml 与权限</a></li>
-              <li><a href="#mcp">MCP 外部工具</a></li>
-              <li><a href="#skills">Skills 与插件</a></li>
-              <li><a href="#automations">自动化</a></li>
+              <li><a href="#project-browser-control">操控浏览器</a></li>
+              <li><a href="#project-inquiry-site">询盘外贸独立站</a></li>
+              <li><a href="#project-solo-wechat-mini">一人公司微信小程序</a></li>
+              <li><a href="#project-personal-site">个人网站</a></li>
+              <li><a href="#project-product-video">产品宣传视频</a></li>
+              <li><a href="#project-ppt">PPT</a></li>
             </ul>
           </details>
           <details class="nav-group">
@@ -1063,7 +1024,7 @@
             <h1>零基础照着做：把 Codex 跑起来，并变成你的开发搭档</h1>
             <p class="lead">
               这是一份面向中文用户的 Codex 课程草稿。页面结构参考你喜欢的教程站：
-              左侧是课程地图，中间是完整教程，右侧是页内目录。内容先按官方文档、帮助中心和开源仓库整理，后续可以继续加入你的经验、案例和视频。
+              左侧是课程地图，中间是完整教程。内容先按官方文档、帮助中心和开源仓库整理，后续可以继续加入你的经验、案例和视频。
             </p>
             <div class="meta-row">
               <span class="pill">适合：第一次接触 Codex</span>
@@ -2032,91 +1993,86 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="agents-md">
-            <h2>AGENTS.md：把重复要求写成规则</h2>
+          <section id="project-browser-control">
+            <h2>操控浏览器：让 Codex 帮你看页面、点页面、验页面</h2>
             <p>
-              如果你每次都要提醒 Codex “先读项目、不要乱加依赖、修改后跑测试”，那就应该写进
-              <code>AGENTS.md</code>。官方文档把它描述为给 Codex 的项目级自定义说明：Codex 在开始工作前会读取这些文件，并按目录层级组合指令。
+              这个项目适合做成第一篇实战文章：目标不是讲浏览器概念，而是让学员看到 Codex 如何打开本地页面、检查按钮、验证画面、定位布局问题，并把发现转成可执行修改。
             </p>
-            <pre><code># AGENTS.md
-
-## 项目说明
-- 这是一个中文教程站，主要入口是 index.html。
-- 页面风格参考文档站：左侧目录，中间正文，右侧页内目录。
-
-## 工作要求
-- 修改前先说明会改哪些文件。
-- 新增内容要保持中文表达清楚，不要堆术语。
-- 页面改动后必须用浏览器检查桌面和移动端布局。
-
-## 完成标准
-- 文件能直接打开。
-- 没有明显文字溢出、重叠或空白异常。
-- 最终回复包含改动和验证结果。</code></pre>
-            <p>
-              可以有全局 <code>~/.codex/AGENTS.md</code>，也可以有项目根目录的
-              <code>AGENTS.md</code>，还可以在子目录里放更具体的规则。越靠近当前目录的说明越具体，通常优先级越高。
-            </p>
-          </section>
-
-          <section id="config">
-            <h2>config.toml 与权限</h2>
-            <p>
-              <code>config.toml</code> 用来保存 Codex 的持久配置，例如模型、推理强度、沙箱、审批策略、MCP 服务器和配置 profile。个人默认配置通常放在
-              <code>~/.codex/config.toml</code>，可信项目可以使用
-              <code>.codex/config.toml</code>。
-            </p>
-            <pre><code># ~/.codex/config.toml
-model = "gpt-5.3-codex"
-reasoning_effort = "medium"
-
-[profiles.safe]
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-
-[profiles.fast-local]
-approval_policy = "never"
-sandbox_mode = "workspace-write"</code></pre>
-            <div class="callout">
-              <strong>新手建议：</strong>
-              不要一开始就给 Codex 全电脑权限。先在练习目录里使用默认权限，理解它会读什么、改什么、什么时候需要审批，再逐步放宽。
+            <div class="grid two">
+              <div class="card">
+                <h3>实战任务</h3>
+                <p>打开一个本地网页，检查导航、表单、移动端布局和页面状态，最后输出问题清单和修复建议。</p>
+              </div>
+              <div class="card">
+                <h3>交付物</h3>
+                <p>一份可复用提示词、一份页面验证记录、一个“浏览器检查完成”的验收清单。</p>
+              </div>
             </div>
           </section>
 
-          <section id="mcp">
-            <h2>MCP：把外部工具接进来</h2>
+          <section id="project-inquiry-site">
+            <h2>询盘外贸独立站：从产品展示到表单线索</h2>
             <p>
-              MCP 是 Model Context Protocol，用来把外部工具和上下文接给 Codex。例如文档检索、浏览器、Figma、内部系统、数据库只读查询等。官方文档说明，Codex 在 CLI 和 IDE extension 中支持 MCP server。
-            </p>
-            <p>
-              适合使用 MCP 的场景：上下文在仓库外、信息经常变化、你希望 Codex 调工具而不是靠复制粘贴、或者团队需要可复用集成。
-            </p>
-            <pre><code># 例：通过 CLI 添加一个文档检索 MCP server
-codex mcp add context7 -- npx -y @upstash/context7-mcp
-
-# 在 Codex TUI 中查看活跃 MCP
-/mcp</code></pre>
-          </section>
-
-          <section id="skills">
-            <h2>Skills 与插件：把稳定流程封装起来</h2>
-            <p>
-              如果一个流程你反复使用，比如 PR 审查、故障排查、发布说明、数据报告，就可以把它做成 Skill。Skill 通常包含一个
-              <code>SKILL.md</code>，描述什么时候使用、怎么做、需要哪些脚本或模板。
-            </p>
-            <p>
-              初版 Skill 不要追求覆盖所有情况。先围绕 2 到 3 个真实任务写清楚输入、步骤和输出，跑顺后再扩展。团队共享时，可以把 Skill 打包进插件。
-            </p>
-          </section>
-
-          <section id="automations">
-            <h2>自动化：让稳定任务定期运行</h2>
-            <p>
-              当一个工作流已经稳定，可以用 Codex App 的 Automations 定时运行，例如每周总结提交、每天检查 CI 失败、定期草拟发布说明、扫描潜在 bug、生成站会摘要。
+              这篇文章把 Codex 当成外贸站搭建助手：先确定产品、客户国家、卖点和询盘字段，再生成首页、产品区、信任背书、FAQ、联系表单和移动端布局。重点是让页面服务于询盘，不做空泛展示。
             </p>
             <div class="callout">
-              <strong>顺序很重要：</strong>
-              先手动跑通，再沉淀成 Skill，最后再变成 Automation。还需要频繁人工纠偏的流程，不适合直接自动化。
+              <strong>验收标准：</strong>
+              首屏能说明卖什么，产品区能讲清差异，表单字段够业务跟进使用，移动端按钮和联系方式容易找到。
+            </div>
+          </section>
+
+          <section id="project-solo-wechat-mini">
+            <h2>一人公司微信小程序：把业务入口做轻</h2>
+            <p>
+              一人公司不适合一开始做复杂系统。这篇文章可以演示如何用 Codex 规划小程序页面：服务介绍、预约咨询、案例展示、资料领取、客服入口和后台数据结构。先做能获客和承接咨询的版本。
+            </p>
+            <div class="grid two">
+              <div class="card">
+                <h3>适合业务</h3>
+                <p>咨询、培训、本地服务、设计交付、AI 自动化服务、轻量电商预约。</p>
+              </div>
+              <div class="card">
+                <h3>Codex 工作</h3>
+                <p>拆页面、写组件、生成示例数据、整理发布前检查项。</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="project-personal-site">
+            <h2>个人网站：把你是谁、能做什么、怎么联系你讲清楚</h2>
+            <p>
+              个人网站项目适合用来练“从模糊需求到完整页面”。文章可以让学员准备个人定位、作品、服务、社交链接和联系方式，然后让 Codex 生成一个简洁可信的单页网站。
+            </p>
+            <p>
+              重点不是炫技，而是让访问者在一分钟内明白你的专业方向、代表作品和下一步联系动作。
+            </p>
+          </section>
+
+          <section id="project-product-video">
+            <h2>产品宣传视频：从卖点到脚本、分镜和成片素材</h2>
+            <p>
+              这篇文章展示 Codex 如何辅助做视频前期：提炼产品卖点、写 30 秒脚本、拆分镜、生成字幕文案、列素材清单，再把这些内容整理成可交给剪辑工具或视频生成工具的制作说明。
+            </p>
+            <div class="callout">
+              <strong>实战重点：</strong>
+              先做清楚“谁看、为什么买、看完做什么”，再写镜头和台词。宣传视频不能只堆形容词。
+            </div>
+          </section>
+
+          <section id="project-ppt">
+            <h2>PPT：把想法整理成能讲的演示稿</h2>
+            <p>
+              PPT 项目适合教用户把散乱资料交给 Codex 整理成结构化表达。文章可以覆盖：确定听众、提炼标题、搭建 8 到 12 页大纲、写每页讲稿、生成视觉建议，并检查逻辑断点。
+            </p>
+            <div class="grid two">
+              <div class="card">
+                <h3>输入</h3>
+                <p>主题、听众、演讲时长、已有资料、希望对方听完采取的动作。</p>
+              </div>
+              <div class="card">
+                <h3>输出</h3>
+                <p>PPT 大纲、逐页文案、演讲备注、配图建议和最终检查清单。</p>
+              </div>
             </div>
           </section>
 
@@ -2218,34 +2174,11 @@ codex mcp add context7 -- npx -y @upstash/context7-mcp
         </article>
       </main>
 
-      <aside class="right-toc" aria-label="页内目录">
-        <div class="progress-card">
-          <strong>学习进度</strong>
-          <div class="meter"><span></span></div>
-          <p>先完成“第一次成功任务”，再进入 AGENTS.md 与 MCP。</p>
-        </div>
-        <div class="nav-section" style="margin-top: 22px">
-          <p class="toc-title">页面目录</p>
-          <ul class="toc-list">
-            <li><a href="#what-is-codex">Codex 是什么</a></li>
-            <li><a href="#choose-surface">选择入口</a></li>
-            <li><a href="#prepare">准备 3 样东西</a></li>
-            <li><a href="#install">安装与登录</a></li>
-            <li><a href="#first-task">第一次任务</a></li>
-            <li><a href="#screenshot-course">完整实操课</a></li>
-            <li><a href="#china-access">国内站使用教程</a></li>
-            <li><a href="#slash-commands">Codex 指令保姆级教程</a></li>
-            <li><a href="#agents-md">AGENTS.md</a></li>
-            <li><a href="#mcp">MCP</a></li>
-            <li><a href="#sources">资料来源</a></li>
-          </ul>
-        </div>
-      </aside>
     </div>
 
     <script>
       const searchInput = document.querySelector("#site-search");
-      const navLinks = [...document.querySelectorAll(".left-nav a, .right-toc a")];
+      const navLinks = [...document.querySelectorAll(".left-nav a")];
       const sections = [...document.querySelectorAll("article section[id]")];
       const productItems = [...document.querySelectorAll(".product-item")];
 
