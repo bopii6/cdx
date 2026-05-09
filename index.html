@@ -910,10 +910,10 @@
           <details class="nav-group">
             <summary>05 Codex 终极实战</summary>
             <ul class="nav-list">
-              <li><a href="#ultimate-codex-project">终极实战总览</a></li>
-              <li><a href="#ultimate-project-frame">从文章到项目</a></li>
-              <li><a href="#ultimate-delivery-loop">交付闭环</a></li>
-              <li><a href="#ultimate-live-script">直播带练脚本</a></li>
+              <li><a href="#ultimate-codex-project">Agent 超级应用</a></li>
+              <li><a href="#ultimate-local-files">文件与 Project</a></li>
+              <li><a href="#ultimate-memory-skills">记忆与 Skill</a></li>
+              <li><a href="#ultimate-plugins-automation">插件、生成与自动化</a></li>
             </ul>
           </details>
           <details class="nav-group">
@@ -1760,9 +1760,9 @@ codex</code></pre>
 
           <section id="ultimate-codex-project">
             <div class="premium-panel">
-              <h3>Codex 终极实战：把 Agent 超级应用讲成一套可落地工作流</h3>
+              <h3>Codex 终极实战：本地化 Agent 超级应用</h3>
               <p>
-                这一篇手册基于微信公众号文章《Agent 超级应用：ChatGPT 用来聊，Codex 干活的时代来了！》重写。直播时不要把它讲成资讯解读，而要带学员完成一次判断：为什么 ChatGPT 更适合问答和讨论，Codex 更适合处理文件、调用工具、控制浏览器，并把工作结果留在本地项目里。
+                如果你同时在用 ChatGPT、Claude、Claude Code 或 Codex，最容易卡住的问题不是“哪个更强”，而是什么时候该用哪个。ChatGPT 和 Claude 更像云端对话工具，适合讨论、提问、改写和推理；Codex 更像能进入本地工作区的 AI Agent，适合处理文件、生成交付物、调用工具、控制浏览器和电脑。
               </p>
               <div class="premium-grid">
                 <div>
@@ -1770,18 +1770,21 @@ codex</code></pre>
                   <span>ChatGPT 用来聊，Codex 干活。两者不是谁替代谁，而是负责不同环节。</span>
                 </div>
                 <div>
-                  <b>实战主线</b>
-                  <span>围绕文件、记忆、插件、Skill、图片、浏览器控制和自动化 7 个能力做演示。</span>
+                  <b>本质差异</b>
+                  <span>ChatGPT 或 Claude 的文件在云端；Codex 的文件在你的电脑和项目文件夹里。</span>
                 </div>
                 <div>
-                  <b>最终交付</b>
-                  <span>让学员拿走一套自己的 Codex 项目工作区，而不是只记住几个功能名。</span>
+                  <b>能力范围</b>
+                  <span>Codex 可以做知识工作，也可以做编程工作，关键是它能把结果留在本地。</span>
                 </div>
               </div>
             </div>
             <h2>Codex 终极实战：Agent 超级应用上手手册</h2>
             <p>
-              这篇文章的价值不在于告诉你“Codex 很强”，而是把 Codex 放回真实工作流：它能读取本地文件、生成本地交付物、沉淀偏好、调用插件、复用 Skill、生成图片、操作浏览器和电脑，并把任务变成自动化。直播手册的目标，是把这些能力串成一次可跟练的终极项目。
+              Codex 看起来像 Claude Code，因为它也能围绕代码和项目工作；它也像 ChatGPT，因为你可以开对话。但它最重要的定位是本地化 Agent 超级应用：上传、读取、生成和修改的文件都围绕你的电脑展开。这个差异让它能做很多普通聊天窗口不适合做的事，比如生成落地页、制作动态图形视频、开发小应用、整理 Excel 和 Word 文档、创建演示文稿，甚至把结果继续导入 Canva。
+            </p>
+            <p>
+              这篇手册按原文逻辑梳理 Codex 的核心能力：完整的文件访问权限、Project 管理文件、agents.md 和 memories 记忆系统、插件生态、Skill 系统、GPT Image 图像生成、浏览器控制和电脑控制、自动化，以及研究预览功能 Chronicle。重点不是堆概念，而是理解每个能力在工作流里的位置。
             </p>
             <div class="source-box">
               <strong>微信公众号文章入口：</strong>
@@ -1789,84 +1792,108 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="ultimate-project-frame">
-            <h2>从文章到项目：把 7 个能力变成一条演示路线</h2>
+          <section id="ultimate-local-files">
+            <h2>能力 1：完整的文件访问权限</h2>
             <p>
-              文章把 Codex 拆成 7 个能力。课程里不要逐条念概念，而是让每个能力对应一个真实动作：学员看完以后，能知道什么时候该让 Codex 接手，而不是继续在聊天窗口里来回复制粘贴。
+              Codex 的第一个关键能力，是它能在授权范围内访问本地文件。ChatGPT 的文件通常存在云端对话里，Codex 则围绕你的电脑和项目目录工作。也就是说，它不只是“读一个附件”，而是可以找到文件夹、读取一批文件、生成新文件，并把产物留在你的本地目录里。
             </p>
             <div class="grid two">
               <div class="card">
-                <h3>1. 文件访问</h3>
-                <p>演示完整的文件访问权限：让 Codex 读取一个本地资料夹，整理成表格、报告或页面。重点讲清楚“文件在你电脑上”。</p>
+                <h3>真实案例：自动处理 60 张收据</h3>
+                <p>Downloads 文件夹里有一个“receipts to process”文件夹，里面有 60 张收据照片。用户让 Codex 分析这些收据，在 Excel 表格里整理交易类型和其他模式。</p>
               </div>
               <div class="card">
-                <h3>2. 项目管理</h3>
-                <p>每个实战都放进 Project。让学员看到对话、生成文件、测试记录都能沉淀在同一个工作区。</p>
+                <h3>Codex 做了什么</h3>
+                <p>它找到文件夹，对 53 张收据做 OCR，提取文本，给交易分类，然后在本地电脑上创建了一个 Excel 工作簿。</p>
               </div>
               <div class="card">
-                <h3>3. 记忆系统</h3>
-                <p>讲 agents.md 和 memories：前者记录你的明确偏好，后者记录过程经验。课堂只示范怎么使用，不鼓励乱改自动记忆。</p>
+                <h3>产物长什么样</h3>
+                <p>Excel 里有总支出、收据类别汇总、支付方式汇总、月度趋势图。这个文件可以直接打开、编辑和分享。</p>
               </div>
               <div class="card">
-                <h3>4. 插件生态</h3>
-                <p>用 @ 调用插件，把 Gmail、Notion、浏览器或其他工具接进工作流。插件解决的是“Codex 能去哪儿拿资料”。</p>
+                <h3>为什么这很重要</h3>
+                <p>它说明 Codex 不是只会回答“怎么做”，而是可以真的去处理你电脑里的资料，并输出一个可继续使用的文件。</p>
               </div>
-              <div class="card">
-                <h3>5. Skill 系统</h3>
-                <p>把满意的一次工作流程沉淀成 Skill 系统。强调它不是提示词收藏夹，而是可复用的 SOP。</p>
-              </div>
-              <div class="card">
-                <h3>6. 生成与控制</h3>
-                <p>GPT Image 负责生成图片素材，浏览器控制和电脑控制负责打开页面、点击按钮、测试交互和整理结果。</p>
-              </div>
-              <div class="card">
-                <h3>7. 自动化</h3>
-                <p>把高频任务设置成自动化，比如每周扫描资料、更新表格、生成复盘。自动化是从“会用”到“省时间”的分水岭。</p>
-              </div>
-              <div class="card">
-                <h3>补充：Chronicle</h3>
-                <p>Chronicle 能基于屏幕上下文给建议，但它会持续记录屏幕。直播中要把能力和隐私边界一起讲清楚。</p>
-              </div>
+            </div>
+            <h2>用 Project 管理文件</h2>
+            <p>
+              既然 Codex 的文件都落在电脑上，就需要用 Project 管理。直接创建 Chat 时，对话会显示在侧边栏，但不一定归入一个具体项目；创建 Project 时，它会连接到你电脑上的一个文件夹。以后 Agent 在这个项目对话中创建的文档、脚本、表格或页面，都会更自然地留在这个项目文件夹里。
+            </p>
+            <div class="callout">
+              <strong>使用原则：</strong>
+              只要任务会产生文件，就优先放进 Project。这样文件、对话、修改记录和后续任务都在同一个工作区里，后面继续迭代时不会散。
             </div>
           </section>
 
-          <section id="ultimate-delivery-loop">
-            <h2>交付闭环：从“知道功能”到“做出资产”</h2>
+          <section id="ultimate-memory-skills">
+            <h2>能力 2：持久化记忆，agents.md 记偏好，memories 记过程</h2>
             <p>
-              这篇文章最适合做成一个完整演示：先让 Codex 处理一批本地资料，再把你的偏好写进 agents.md，然后把流程整理成 Skill，最后用浏览器检查输出，并设置一个后续自动化任务。这样学员看到的不是单点功能，而是一条能复用的生产线。
+              Codex 有两类记忆。第一类是手动记忆，常见载体是 agents.md。你可以告诉 Agent 以后遇到某类任务要遵守什么风格、流程或限制，它会把这些偏好写进去。比如你喜欢某种落地页结构，可以让它记住：以后没有指定样式时默认使用这种版式，文本多时要加目录。
+            </p>
+            <p>
+              第二类是自动记忆，常见位置是 memories 文件夹。它记录 Agent 做过的任务和过程经验，随着时间自动优化。这个文件夹可以观察，但不建议手动修改。简单说，agents.md 是你主动写给 Codex 的规则，memories 是 Codex 自动积累的过程记录。
+            </p>
+            <h2>能力 4：Skill 系统，把工作流程沉淀成 SOP</h2>
+            <p>
+              Skill 系统是 Codex 最值得重视的能力之一。你可以把 Skill 理解成可复用的工作流程配方：每次 Agent 使用某个 Skill，都会按里面的说明执行同一套流程。它不是普通提示词，而是能被反复调用、持续优化的 SOP。
             </p>
             <div class="grid two">
               <div class="card">
-                <h3>课堂输入</h3>
-                <p>一个项目文件夹、一组示例资料、一条业务目标、一个希望复用的输出标准。</p>
+                <h3>方式 1：提示词转技能</h3>
+                <p>直接让 Codex 创建一个技能，比如 brand deal analysis。这样速度快，但因为没有真实迭代，质量可能比较粗。</p>
               </div>
               <div class="card">
-                <h3>课堂输出</h3>
-                <p>一份整理后的交付物、一个项目目录、一条可复用 Skill、一份自动化任务说明和一次浏览器验收记录。</p>
+                <h3>方式 2：手动工作流程法</h3>
+                <p>先让 Codex 完成一次任务，来回修改到满意，再说“我对这个输出满意了，把它变成一个技能”。这种方式更可靠。</p>
               </div>
             </div>
-            <div class="callout">
-              <strong>验收顺序：</strong>
-              文件是否真的生成在本地、偏好是否写入 agents.md、流程是否能复用成 Skill、浏览器检查是否跑完、自动化是否说清楚触发时间和输出结果。
-            </div>
+            <p>
+              原文里的例子是品牌合作邮件整理。先让 Codex 把品牌合作邮件整理成电子表格，表格按优先级做颜色标记，等输出质量满意后，再沉淀成 brand deal researcher。以后按斜杠键调用这个 Skill，就能复用同样的研究和整理流程。
+            </p>
+            <p>
+              Skill 也可以持续优化。每次使用技能，如果你发现某种格式更好、某个字段应该固定出现、某个插件应该一起调用，就可以让 Codex 更新这个 Skill。长期看，Skill 是把一次好结果变成稳定生产力的关键。
+            </p>
           </section>
 
-          <section id="ultimate-live-script">
-            <h2>直播带练脚本：把文章讲成一场终极实战</h2>
+          <section id="ultimate-plugins-automation">
+            <h2>能力 3：插件生态，用 @ 调用外部工具</h2>
             <p>
-              直播开场先给结论：ChatGPT 用来聊，Codex 干活。然后围绕文章里的 7 个能力，每讲一个能力就做一个动作，让学员看到 Codex 如何从“问答工具”变成“本地 Agent 超级应用”。
+              插件生态让 Codex 不只停留在本地文件夹里。插件是可安装、可重用的包，可以把 Codex 连接到 Gmail、Notion、Slack 等外部工具和工作流程。调用方式通常是用 @ 符号提及插件。
             </p>
-            <pre><code>请把这篇《Agent 超级应用》文章改造成一场 Codex 终极实战。
-输出：
-1. 用一句话解释 ChatGPT 和 Codex 的分工。
-2. 把 7 个能力拆成 7 个课堂动作。
-3. 为每个动作写一条 Codex 指令。
-4. 标出每一步应该生成的本地文件。
-5. 最后生成一份可复用 Skill 和自动化建议。</code></pre>
-            <div class="callout">
-              <strong>直播拆解提醒：</strong>
-              不要把终极实战讲成“功能清单”。每一步都要落到一个可交付成果：文件、表格、页面、图片、Skill、浏览器测试记录或自动化任务。
+            <div class="grid two">
+              <div class="card">
+                <h3>Gmail 插件案例</h3>
+                <p>创建 Brand Deals 项目，让 Codex 查看过去两周邮件，找出所有付费推广、赞助、品牌合作机会，做研究并整理成表格和笔记。</p>
+              </div>
+              <div class="card">
+                <h3>Notion 插件案例</h3>
+                <p>让 Codex 读取你过去写过的脚本，再按你的表达风格生成新脚本。它不只是拿资料，而是把外部内容转进当前工作流。</p>
+              </div>
             </div>
+            <h2>能力 5：GPT Image 直接生成图片</h2>
+            <p>
+              Codex 内置 GPT Image，可以直接在项目里生成图片。原文的例子是产品照片：用户创建 content 项目，上传一张毛衣图片，然后要求生成 5 张不同国籍模特穿着毛衣的产品照片，其中有单人照、三人照和五人照。生成结果会直接存储在 content 项目文件夹里。
+            </p>
+            <h2>能力 6：浏览器控制和电脑控制</h2>
+            <p>
+              Codex 可以像人一样控制浏览器和电脑。一个案例是用 @computer use 打开 Canva，创建 Canva 演示文稿，并把 5 张图片分别放进 5 页幻灯片。另一个案例是用 @browser use 自动测试网页应用：打开页面、点击开始按钮、滚动、选择测验、测试侧边栏，确认按钮和导航都能正常工作。
+            </p>
+            <h2>能力 7：自动化，把任务变成定时任务</h2>
+            <p>
+              当一个任务可以重复执行，就可以变成自动化。比如前面创建了品牌合作分析 Skill，就可以让 Codex 每周五上午 9 点运行一次：扫描 Gmail 里的付费推广、赞助和品牌合作邮件，更新品牌合作表格。自动化页面里可以看到运行时间、状态、上次运行时间，也可以随时编辑。
+            </p>
+            <h2>补充能力：Chronicle 实时监控屏幕上下文</h2>
+            <p>
+              Chronicle 是一个研究预览功能，需要在设置中手动开启。它会持续记录屏幕，从你最近打开的页面、演示文稿或工作内容里提取上下文。比如你打开了一个 Codex 视觉演示文稿，它可以根据屏幕内容建议补充“Codex 超级应用地图”“提示词文件的完整控制循环图”“Chronicle 演示幻灯片”等内容。
+            </p>
+            <div class="callout">
+              <strong>隐私边界：</strong>
+              Chronicle 的能力很强，但它会持续录制或记录屏幕上下文。开启前必须想清楚当前屏幕里是否有敏感内容。
+            </div>
+            <h2>最后的判断</h2>
+            <p>
+              Codex 不是“更好的 ChatGPT”。ChatGPT 是云端对话工具，适合问问题、讨论思路、改写文本；Codex 是本地化 Agent 超级应用，适合处理本地文件、构建可复用工作流程、控制浏览器和电脑，并把成果留在你的项目里。如果只是偶尔问问题，用 ChatGPT 就够了；如果要把 AI 接进真实工作流，Codex 才是主要工具。
+            </p>
           </section>
 
           <section id="prompt-library">
