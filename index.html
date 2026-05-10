@@ -202,9 +202,10 @@
       }
 
       .nav-group summary {
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
         align-items: center;
-        justify-content: space-between;
+        column-gap: 8px;
         min-height: 42px;
         padding: 0 12px;
         color: var(--ink);
@@ -212,22 +213,7 @@
         font-size: 14px;
         font-weight: 800;
         list-style: none;
-      }
-
-      .nav-group summary {
-        cursor: grab;
-        touch-action: none;
-      }
-
-      .nav-group.dragging {
-        opacity: 0.58;
-        border-color: var(--accent-2);
-        box-shadow: 0 14px 34px rgba(22, 18, 12, 0.12);
-      }
-
-      .nav-group.drop-target {
-        transform: translateY(2px);
-        border-color: var(--accent-2);
+        user-select: none;
       }
 
       .nav-label {
@@ -242,6 +228,29 @@
         box-shadow: inset 0 0 0 1px rgba(202, 104, 43, 0.28);
       }
 
+      .nav-group.drag-source {
+        opacity: 0.28;
+      }
+
+      .nav-drag-ghost {
+        position: fixed;
+        z-index: 9999;
+        pointer-events: none;
+        border: 1px solid var(--accent-2);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 18px 44px rgba(22, 18, 12, 0.18);
+        overflow: hidden;
+      }
+
+      .nav-placeholder {
+        height: 56px;
+        margin-bottom: 10px;
+        border: 1px dashed rgba(14, 111, 116, 0.45);
+        border-radius: var(--radius);
+        background: rgba(14, 111, 116, 0.06);
+      }
+
       .nav-group summary::-webkit-details-marker {
         display: none;
       }
@@ -250,6 +259,7 @@
         content: "+";
         color: var(--accent-2);
         font-weight: 900;
+        margin-left: 6px;
       }
 
       .nav-group[open] summary::after {
@@ -2126,12 +2136,24 @@ codex</code></pre>
         }
       };
 
+      const stripNavNumber = (text) => text.trim().replace(/^\d{2}\s+/, "");
+
+      const applyNavNumbers = () => {
+        const groups = getNavGroups();
+        groups.forEach((group, index) => {
+          const label = group.querySelector(".nav-label");
+          const title = stripNavNumber(label.textContent || "未命名目录");
+          label.textContent = `${String(index + 1).padStart(2, "0")} ${title}`;
+        });
+      };
+
       const saveNavPreferences = () => {
+        applyNavNumbers();
         const groups = getNavGroups();
         const preferences = {
           order: groups.map((group) => group.dataset.navId),
           titles: Object.fromEntries(
-            groups.map((group) => [group.dataset.navId, group.querySelector(".nav-label").textContent.trim()]),
+            groups.map((group) => [group.dataset.navId, stripNavNumber(group.querySelector(".nav-label").textContent)]),
           ),
         };
         localStorage.setItem(navStorageKey, JSON.stringify(preferences));
@@ -2146,8 +2168,8 @@ codex</code></pre>
           const originalTitle = summary.textContent.trim();
           const navId = slugifyNavTitle(originalTitle, index);
           group.dataset.navId = navId;
-          summary.innerHTML = `<span class="nav-label" title="双击改名，拖动排序"></span>`;
-          summary.querySelector(".nav-label").textContent = preferences.titles?.[navId] || originalTitle;
+          summary.innerHTML = `<span class="nav-label" title="双击改名"></span>`;
+          summary.querySelector(".nav-label").textContent = preferences.titles?.[navId] || stripNavNumber(originalTitle);
         });
 
         if (preferences.order?.length) {
@@ -2157,6 +2179,8 @@ codex</code></pre>
             if (group) navSection.appendChild(group);
           });
         }
+
+        applyNavNumbers();
       };
 
       setupEditableNav();
@@ -2179,67 +2203,96 @@ codex</code></pre>
       });
 
       let draggedGroup = null;
+      let dragGhost = null;
+      let dragPlaceholder = null;
+      let dragOffsetY = 0;
       let dragStartY = 0;
-      let dragStarted = false;
+      let dragActive = false;
       let suppressSummaryClick = false;
 
-      const moveDraggedGroup = (clientY) => {
+      const movePlaceholder = (clientY) => {
         const siblings = getNavGroups().filter((group) => group !== draggedGroup);
         const target = siblings.find((group) => {
           const rect = group.getBoundingClientRect();
           return clientY < rect.top + rect.height / 2;
         });
-        navSection.insertBefore(draggedGroup, target || null);
+        navSection.insertBefore(dragPlaceholder, target || null);
       };
 
-      const finishPointerDrag = () => {
-        if (!draggedGroup) return;
-        draggedGroup.classList.remove("dragging");
-        draggedGroup.querySelector("summary").releasePointerCapture?.(draggedGroup.dataset.pointerId);
-        draggedGroup = null;
-        dragStarted = false;
-        saveNavPreferences();
+      const startNavDrag = (group, event) => {
+        const rect = group.getBoundingClientRect();
+        draggedGroup = group;
+        dragStartY = event.clientY;
+        dragOffsetY = event.clientY - rect.top;
+        dragActive = false;
       };
+
+      const activateNavDrag = () => {
+        if (!draggedGroup || dragActive) return;
+        const rect = draggedGroup.getBoundingClientRect();
+        dragActive = true;
+        draggedGroup.classList.add("drag-source");
+        dragPlaceholder = document.createElement("div");
+        dragPlaceholder.className = "nav-placeholder";
+        dragPlaceholder.style.height = `${rect.height}px`;
+        navSection.insertBefore(dragPlaceholder, draggedGroup.nextSibling);
+        dragGhost = draggedGroup.cloneNode(true);
+        dragGhost.className = "nav-drag-ghost";
+        dragGhost.style.width = `${rect.width}px`;
+        dragGhost.style.left = `${rect.left}px`;
+        document.body.appendChild(dragGhost);
+        document.body.style.userSelect = "none";
+      };
+
+      const finishNavDrag = () => {
+        if (!draggedGroup) return;
+        if (dragActive && dragPlaceholder) {
+          navSection.insertBefore(draggedGroup, dragPlaceholder);
+          saveNavPreferences();
+        }
+        draggedGroup.classList.remove("drag-source");
+        dragGhost?.remove();
+        dragPlaceholder?.remove();
+        draggedGroup = null;
+        dragGhost = null;
+        dragPlaceholder = null;
+        dragActive = false;
+        document.body.style.userSelect = "";
+      };
+
+      window.addEventListener("mousemove", (event) => {
+        if (!draggedGroup) return;
+        if (!dragActive && Math.abs(event.clientY - dragStartY) < 8) return;
+        event.preventDefault();
+        activateNavDrag();
+        dragGhost.style.top = `${event.clientY - dragOffsetY}px`;
+        movePlaceholder(event.clientY);
+      });
+
+      window.addEventListener("mouseup", (event) => {
+        if (!draggedGroup) return;
+        if (dragActive) {
+          event.preventDefault();
+          suppressSummaryClick = true;
+          window.setTimeout(() => {
+            suppressSummaryClick = false;
+          }, 0);
+        }
+        finishNavDrag();
+      });
 
       getNavGroups().forEach((group) => {
         const summary = group.querySelector("summary");
 
-        summary.addEventListener("pointerdown", (event) => {
-          if (event.button !== 0 || event.target.closest("a") || event.target.closest('[contenteditable="true"]')) return;
-          draggedGroup = group;
-          dragStartY = event.clientY;
-          dragStarted = false;
-          group.dataset.pointerId = event.pointerId;
-          summary.setPointerCapture?.(event.pointerId);
+        summary.addEventListener("mousedown", (event) => {
+          if (event.button !== 0 || event.target.closest('[contenteditable="true"]')) return;
+          startNavDrag(group, event);
         });
-
-        summary.addEventListener("pointermove", (event) => {
-          if (draggedGroup !== group) return;
-          if (!dragStarted && Math.abs(event.clientY - dragStartY) < 6) return;
-          event.preventDefault();
-          dragStarted = true;
-          group.classList.add("dragging");
-          moveDraggedGroup(event.clientY);
-        });
-
-        summary.addEventListener("pointerup", (event) => {
-          if (dragStarted) {
-            event.preventDefault();
-            suppressSummaryClick = true;
-            window.setTimeout(() => {
-              suppressSummaryClick = false;
-            }, 0);
-          }
-          finishPointerDrag();
-        });
-
-        summary.addEventListener("pointercancel", finishPointerDrag);
 
         summary.addEventListener("click", (event) => {
-          if (suppressSummaryClick) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
+          if (!suppressSummaryClick) return;
+          event.preventDefault();
+          event.stopPropagation();
         });
 
         const label = group.querySelector(".nav-label");
