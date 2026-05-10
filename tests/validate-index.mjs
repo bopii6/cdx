@@ -96,6 +96,15 @@ const required = [
   "主力电脑",
   '<summary>07 模板与资料</summary>',
   "codexGuideNavPreferences",
+  "codexGuidePremiumUnlocked",
+  'data-premium-group="true"',
+  'data-premium-section="true"',
+  'id="course-unlock"',
+  'id="unlock-password"',
+  'id="unlock-status"',
+  "3e69039eb2718d5b0706ead298a5d85873eb5af6d16dbb8d7205daf27502a91b",
+  "crypto.subtle.digest",
+  "applyPremiumLockState",
   "applyNavNumbers",
   "stripNavNumber",
   "padStart(2",
@@ -142,6 +151,8 @@ const hrefs = [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
 const brokenAnchors = hrefs.filter((href) => href !== "top" && !ids.includes(href));
 const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
 const navGroupCount = [...html.matchAll(/<details class="nav-group"/g)].length;
+const premiumGroupCount = [...html.matchAll(/<details class="nav-group" data-premium-group="true"/g)].length;
+const premiumSectionCount = [...html.matchAll(/<section[^>]+data-premium-section="true"/g)].length;
 const forbiddenLayout = [
   "right-toc",
   "progress-card",
@@ -162,15 +173,29 @@ const publicScreenshotWording = [
   "https://mp.weixin.qq.com/s/Cp1f7KpEzZ-PqOI62dNF0Q",
   "https://mp.weixin.qq.com/s/a6FCHSkZnimbpL2albBsaw",
 ].filter((text) => html.includes(text));
+const leakedUnlockPassword = html.includes("codex2026");
 
-if (missing.length || brokenAnchors.length || duplicateIds.length || navGroupCount !== 7 || forbiddenLayout.length || publicScreenshotWording.length) {
+if (
+  missing.length ||
+  brokenAnchors.length ||
+  duplicateIds.length ||
+  navGroupCount !== 7 ||
+  premiumGroupCount !== 6 ||
+  premiumSectionCount !== 18 ||
+  forbiddenLayout.length ||
+  publicScreenshotWording.length ||
+  leakedUnlockPassword
+) {
   console.error("index.html validation failed");
   if (missing.length) console.error("Missing content:", missing.join(", "));
   if (brokenAnchors.length) console.error("Broken anchors:", brokenAnchors.join(", "));
   if (duplicateIds.length) console.error("Duplicate section ids:", duplicateIds.join(", "));
   if (navGroupCount !== 7) console.error("Expected 7 nav groups, found:", navGroupCount);
+  if (premiumGroupCount !== 6) console.error("Expected 6 locked nav groups, found:", premiumGroupCount);
+  if (premiumSectionCount !== 18) console.error("Expected 18 locked sections, found:", premiumSectionCount);
   if (forbiddenLayout.length) console.error("Forbidden right-side layout:", forbiddenLayout.join(", "));
   if (publicScreenshotWording.length) console.error("Forbidden screenshot-source wording:", publicScreenshotWording.join(", "));
+  if (leakedUnlockPassword) console.error("Unlock password must not appear in index.html");
   process.exit(1);
 }
 

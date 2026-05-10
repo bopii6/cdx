@@ -9,7 +9,7 @@ const deploymentDoc = await readFile(new URL("../DEPLOYMENT.md", import.meta.url
 
 const requiredPackageScripts = {
   build: "node scripts/build-site.mjs",
-  test: "node tests/validate-index.mjs && node tests/validate-deployment.mjs",
+  test: "node tests/validate-index.mjs && node tests/validate-deployment.mjs && node tests/verify-premium-lock.mjs",
 };
 
 const missingScripts = Object.entries(requiredPackageScripts)

@@ -139,6 +139,15 @@
         white-space: nowrap;
       }
 
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
       .top-actions {
         display: flex;
         align-items: center;
@@ -309,6 +318,32 @@
       .nav-list a:hover {
         color: var(--accent);
         background: rgba(139, 91, 34, 0.08);
+      }
+
+      body:not(.premium-unlocked) .nav-group[data-premium-group="true"] {
+        border-color: rgba(154, 106, 42, 0.28);
+        background: rgba(247, 245, 240, 0.68);
+      }
+
+      body:not(.premium-unlocked) .nav-group[data-premium-group="true"] summary {
+        color: var(--muted);
+      }
+
+      body:not(.premium-unlocked) .nav-group[data-premium-group="true"] summary::after,
+      body:not(.premium-unlocked) .nav-group[data-premium-group="true"][open] summary::after {
+        content: "锁";
+        border: 1px solid rgba(154, 106, 42, 0.32);
+        border-radius: 999px;
+        padding: 1px 7px;
+        color: var(--gold);
+        background: #fff;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      body:not(.premium-unlocked) .nav-group[data-premium-group="true"] .nav-list,
+      body:not(.premium-unlocked) [data-premium-section="true"] {
+        display: none;
       }
 
       main {
@@ -712,6 +747,68 @@
         color: var(--accent-2);
       }
 
+      .unlock-panel {
+        margin: 46px 0 52px;
+        border: 1px solid rgba(154, 106, 42, 0.34);
+        border-radius: var(--radius);
+        padding: 24px;
+        background: #fffdf8;
+        box-shadow: 0 18px 48px rgba(22, 18, 12, 0.08);
+      }
+
+      .unlock-panel h2 {
+        margin-bottom: 10px;
+        font-size: 28px;
+      }
+
+      .unlock-panel p {
+        max-width: 720px;
+        color: var(--muted);
+      }
+
+      .unlock-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        max-width: 640px;
+        margin-top: 18px;
+      }
+
+      .unlock-form input {
+        min-height: 46px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 0 14px;
+        color: var(--ink);
+        background: #fff;
+        font: inherit;
+      }
+
+      .unlock-form button {
+        min-height: 46px;
+        border: 0;
+        border-radius: var(--radius);
+        padding: 0 18px;
+        color: #fff;
+        background: var(--accent-2);
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .unlock-status {
+        min-height: 24px;
+        margin-top: 10px;
+        color: var(--gold);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .premium-unlocked .unlock-panel {
+        border-color: rgba(20, 107, 112, 0.34);
+        background: rgba(20, 107, 112, 0.07);
+      }
+
       .lesson-flow {
         display: grid;
         gap: 14px;
@@ -875,6 +972,10 @@
           grid-template-columns: 1fr;
         }
 
+        .unlock-form {
+          grid-template-columns: 1fr;
+        }
+
         h1 {
           font-size: 42px;
         }
@@ -914,7 +1015,7 @@
               <li><a href="#screenshot-course">完整实操课</a></li>
             </ul>
           </details>
-          <details class="nav-group" open>
+          <details class="nav-group" data-premium-group="true" open>
             <summary>02 Codex 国内站</summary>
             <ul class="nav-list">
               <li><a href="#china-access">使用前先了解</a></li>
@@ -924,7 +1025,7 @@
               <li><a href="#china-faq">常见问题</a></li>
             </ul>
           </details>
-          <details class="nav-group" open>
+          <details class="nav-group" data-premium-group="true" open>
             <summary>03 Codex 指令保姆级教程</summary>
             <ul class="nav-list">
               <li><a href="#slash-commands">Codex 指令保姆级教程</a></li>
@@ -935,7 +1036,7 @@
               <li><a class="sub-link" href="#slash-practice">可复制提示</a></li>
             </ul>
           </details>
-          <details class="nav-group">
+          <details class="nav-group" data-premium-group="true">
             <summary>04 Codex 项目实战</summary>
             <ul class="nav-list">
               <li><a href="#project-browser-control">操控浏览器</a></li>
@@ -946,7 +1047,7 @@
               <li><a href="#project-ppt">PPT</a></li>
             </ul>
           </details>
-          <details class="nav-group">
+          <details class="nav-group" data-premium-group="true">
             <summary>Agent 超级应用 Codex，七大核心能力拆解</summary>
             <ul class="nav-list">
               <li><a href="#ultimate-codex-project">Agent 超级应用</a></li>
@@ -955,7 +1056,7 @@
               <li><a href="#ultimate-plugins-automation">插件、生成与自动化</a></li>
             </ul>
           </details>
-          <details class="nav-group">
+          <details class="nav-group" data-premium-group="true">
             <summary>06 一句话安装 Hermes Agent，微信全能秘书</summary>
             <ul class="nav-list">
               <li><a href="#hermes-agent-secretary">Hermes 微信全能秘书</a></li>
@@ -963,7 +1064,7 @@
               <li><a href="#hermes-agent-wechat">微信绑定与安全</a></li>
             </ul>
           </details>
-          <details class="nav-group">
+          <details class="nav-group" data-premium-group="true">
             <summary>07 模板与资料</summary>
             <ul class="nav-list">
               <li><a href="#prompt-library">提示词模板</a></li>
@@ -1347,7 +1448,20 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="china-access">
+          <section class="unlock-panel" id="course-unlock" aria-live="polite">
+            <h2>解锁后续课程</h2>
+            <p>
+              新手入门可以直接学习。第 02 到第 07 章属于进阶课程，需要输入课程密码后查看。
+            </p>
+            <form class="unlock-form" id="unlock-form">
+              <label class="visually-hidden" for="unlock-password">课程密码</label>
+              <input id="unlock-password" type="password" autocomplete="current-password" placeholder="输入课程密码" />
+              <button type="submit">解锁课程</button>
+            </form>
+            <div class="unlock-status" id="unlock-status"></div>
+          </section>
+
+          <section id="china-access" data-premium-section="true">
             <h2>Codex 国内站使用教程</h2>
             <p>
               这一节讲国内用户如何用第三方国内站跑通 Codex：先确认入口和服务规则，再完成注册、订阅、客户端安装、CC-Switch 接入，最后用一个小任务验证配置是否可用。
@@ -1562,7 +1676,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="slash-commands">
+          <section id="slash-commands" data-premium-section="true">
             <h2>Codex 指令保姆级教程</h2>
             <p>
               这个话题整理自 Oldeng 的 X 文章。它的核心提醒很实用：Codex 不是单纯聊天机器人，更像坐在项目目录里的 AI 编程同事。普通 prompt 是让它干活，斜杠指令则是管理它怎么工作。
@@ -1702,7 +1816,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="project-browser-control">
+          <section id="project-browser-control" data-premium-section="true">
             <div class="premium-panel">
               <h3>第 04 章不是资料目录，是直播课的核心成交资产</h3>
               <p>
@@ -1739,7 +1853,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="project-inquiry-site">
+          <section id="project-inquiry-site" data-premium-section="true">
             <h2>询盘外贸独立站：从产品展示到表单线索</h2>
             <p>
               这篇文章把 Codex 当成外贸站搭建助手：先确定产品、客户国家、卖点和询盘字段，再生成首页、产品区、信任背书、FAQ、联系表单和移动端布局。重点是让页面服务于询盘，不做空泛展示。
@@ -1750,7 +1864,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="project-solo-wechat-mini">
+          <section id="project-solo-wechat-mini" data-premium-section="true">
             <h2>一人公司微信小程序：把业务入口做轻</h2>
             <p>
               一人公司不适合一开始做复杂系统。这篇文章可以演示如何用 Codex 规划小程序页面：服务介绍、预约咨询、案例展示、资料领取、客服入口和后台数据结构。先做能获客和承接咨询的版本。
@@ -1767,7 +1881,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="project-personal-site">
+          <section id="project-personal-site" data-premium-section="true">
             <h2>个人网站：把你是谁、能做什么、怎么联系你讲清楚</h2>
             <p>
               个人网站项目适合用来练“从模糊需求到完整页面”。文章可以让学员准备个人定位、作品、服务、社交链接和联系方式，然后让 Codex 生成一个简洁可信的单页网站。
@@ -1777,7 +1891,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="project-product-video">
+          <section id="project-product-video" data-premium-section="true">
             <h2>产品宣传视频：从卖点到脚本、分镜和成片素材</h2>
             <p>
               这篇文章展示 Codex 如何辅助做视频前期：提炼产品卖点、写 30 秒脚本、拆分镜、生成字幕文案、列素材清单，再把这些内容整理成可交给剪辑工具或视频生成工具的制作说明。
@@ -1788,7 +1902,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="project-ppt">
+          <section id="project-ppt" data-premium-section="true">
             <h2>PPT：把想法整理成能讲的演示稿</h2>
             <p>
               PPT 项目适合教用户把散乱资料交给 Codex 整理成结构化表达。文章可以覆盖：确定听众、提炼标题、搭建 8 到 12 页大纲、写每页讲稿、生成视觉建议，并检查逻辑断点。
@@ -1805,7 +1919,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="ultimate-codex-project">
+          <section id="ultimate-codex-project" data-premium-section="true">
             <div class="premium-panel">
               <h3>Codex 终极实战：本地化 Agent 超级应用</h3>
               <p>
@@ -1835,7 +1949,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="ultimate-local-files">
+          <section id="ultimate-local-files" data-premium-section="true">
             <h2>能力 1：完整的文件访问权限</h2>
             <p>
               Codex 的第一个关键能力，是它能在授权范围内访问本地文件。ChatGPT 的文件通常存在云端对话里，Codex 则围绕你的电脑和项目目录工作。也就是说，它不只是“读一个附件”，而是可以找到文件夹、读取一批文件、生成新文件，并把产物留在你的本地目录里。
@@ -1868,7 +1982,7 @@ codex</code></pre>
             </div>
           </section>
 
-          <section id="ultimate-memory-skills">
+          <section id="ultimate-memory-skills" data-premium-section="true">
             <h2>能力 2：持久化记忆，agents.md 记偏好，memories 记过程</h2>
             <p>
               Codex 有两类记忆。第一类是手动记忆，常见载体是 agents.md。你可以告诉 Agent 以后遇到某类任务要遵守什么风格、流程或限制，它会把这些偏好写进去。比如你喜欢某种落地页结构，可以让它记住：以后没有指定样式时默认使用这种版式，文本多时要加目录。
@@ -1898,7 +2012,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="ultimate-plugins-automation">
+          <section id="ultimate-plugins-automation" data-premium-section="true">
             <h2>能力 3：插件生态，用 @ 调用外部工具</h2>
             <p>
               插件生态让 Codex 不只停留在本地文件夹里。插件是可安装、可重用的包，可以把 Codex 连接到 Gmail、Notion、Slack 等外部工具和工作流程。调用方式通常是用 @ 符号提及插件。
@@ -1939,7 +2053,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="hermes-agent-secretary">
+          <section id="hermes-agent-secretary" data-premium-section="true">
             <div class="premium-panel">
               <h3>一句话安装 Hermes Agent，微信全能秘书</h3>
               <p>
@@ -1969,7 +2083,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="hermes-agent-install">
+          <section id="hermes-agent-install" data-premium-section="true">
             <h2>一句话安装 Hermes Agent</h2>
             <p>
               文章强调：安装 Hermes 并不难，关键是先准备好前提条件，然后把安装、配置、测试交给 Codex。
@@ -1995,7 +2109,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="hermes-agent-wechat">
+          <section id="hermes-agent-wechat" data-premium-section="true">
             <h2>扫码绑定微信 Clawdbot</h2>
             <p>
               Hermes 安装完成后，下一步是用微信扫码绑定 Clawdbot。绑定后，它就可以作为微信里的 Agent 入口使用。原文还提到，微信 Clawdbot 可以改头像、改名字，所以它可以伪装成一个更自然的微信联系人形态。
@@ -2012,7 +2126,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="prompt-library">
+          <section id="prompt-library" data-premium-section="true">
             <h2>提示词模板</h2>
             <h3>让 Codex 解释项目</h3>
             <pre><code>请先阅读当前项目结构和关键文件，然后用中文说明：
@@ -2037,7 +2151,7 @@ codex</code></pre>
 - 最后列出资料来源链接。</code></pre>
           </section>
 
-          <section id="faq">
+          <section id="faq" data-premium-section="true">
             <h2>常见问题</h2>
             <h3>我不会写代码，可以用 Codex 吗？</h3>
             <p>
@@ -2057,7 +2171,7 @@ codex</code></pre>
             </p>
           </section>
 
-          <section id="sources">
+          <section id="sources" data-premium-section="true">
             <h2>调研来源</h2>
             <p>
               这一版内容优先整合官方资料，再补充开源仓库信息。后续你加入自己的实操经验时，可以把“官方事实”和“个人经验”分开标注。
@@ -2117,6 +2231,12 @@ codex</code></pre>
       const sections = [...document.querySelectorAll("article section[id]")];
       const navSection = document.querySelector(".nav-section");
       const navStorageKey = "codexGuideNavPreferences";
+      const premiumStorageKey = "codexGuidePremiumUnlocked";
+      const premiumPasswordHash = "3e69039eb2718d5b0706ead298a5d85873eb5af6d16dbb8d7205daf27502a91b";
+      const unlockPanel = document.querySelector("#course-unlock");
+      const unlockForm = document.querySelector("#unlock-form");
+      const unlockPassword = document.querySelector("#unlock-password");
+      const unlockStatus = document.querySelector("#unlock-status");
 
       const getNavGroups = () => [...document.querySelectorAll(".nav-group")];
 
@@ -2137,6 +2257,47 @@ codex</code></pre>
       };
 
       const stripNavNumber = (text) => text.trim().replace(/^\d{2}\s+/, "");
+
+      const isPremiumUnlocked = () => localStorage.getItem(premiumStorageKey) === "true";
+
+      const applyPremiumLockState = () => {
+        const unlocked = isPremiumUnlocked();
+        document.body.classList.toggle("premium-unlocked", unlocked);
+        document.querySelectorAll("[data-premium-group='true']").forEach((group) => {
+          group.toggleAttribute("open", unlocked);
+          group.setAttribute("aria-disabled", unlocked ? "false" : "true");
+        });
+        document.querySelectorAll("[data-premium-section='true']").forEach((section) => {
+          section.setAttribute("aria-hidden", unlocked ? "false" : "true");
+        });
+        if (unlockStatus) {
+          unlockStatus.textContent = unlocked ? "已解锁：第 02 到第 07 章可以查看。" : "";
+        }
+      };
+
+      const hashUnlockPassword = async (value) => {
+        const bytes = new TextEncoder().encode(value);
+        const digest = await crypto.subtle.digest("SHA-256", bytes);
+        return [...new Uint8Array(digest)]
+          .map((byte) => byte.toString(16).padStart(2, "0"))
+          .join("");
+      };
+
+      const focusUnlockPanel = () => {
+        unlockPanel?.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => unlockPassword?.focus(), 280);
+      };
+
+      const isLockedPremiumHash = (hash) => {
+        const target = document.getElementById(hash.replace(/^#/, ""));
+        return Boolean(target?.matches("[data-premium-section='true']") && !isPremiumUnlocked());
+      };
+
+      const redirectLockedHash = () => {
+        if (!isLockedPremiumHash(window.location.hash)) return;
+        history.replaceState(null, "", "#course-unlock");
+        focusUnlockPanel();
+      };
 
       const applyNavNumbers = () => {
         const groups = getNavGroups();
@@ -2184,6 +2345,8 @@ codex</code></pre>
       };
 
       setupEditableNav();
+      applyPremiumLockState();
+      redirectLockedHash();
 
       const navLinks = [...document.querySelectorAll(".left-nav a")];
 
@@ -2200,6 +2363,34 @@ codex</code></pre>
           event.preventDefault();
           searchInput.focus();
         }
+      });
+
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link || !isLockedPremiumHash(link.getAttribute("href"))) return;
+        event.preventDefault();
+        focusUnlockPanel();
+      });
+
+      window.addEventListener("hashchange", redirectLockedHash);
+
+      unlockForm?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const value = unlockPassword.value.trim();
+        if (!value) {
+          unlockStatus.textContent = "请输入课程密码。";
+          unlockPassword.focus();
+          return;
+        }
+        const hash = await hashUnlockPassword(value);
+        if (hash !== premiumPasswordHash) {
+          unlockStatus.textContent = "密码不正确，请重新输入。";
+          unlockPassword.select();
+          return;
+        }
+        localStorage.setItem(premiumStorageKey, "true");
+        unlockPassword.value = "";
+        applyPremiumLockState();
       });
 
       let draggedGroup = null;
@@ -2285,11 +2476,18 @@ codex</code></pre>
         const summary = group.querySelector("summary");
 
         summary.addEventListener("mousedown", (event) => {
+          if (group.matches("[data-premium-group='true']") && !isPremiumUnlocked()) return;
           if (event.button !== 0 || event.target.closest('[contenteditable="true"]')) return;
           startNavDrag(group, event);
         });
 
         summary.addEventListener("click", (event) => {
+          if (group.matches("[data-premium-group='true']") && !isPremiumUnlocked()) {
+            event.preventDefault();
+            event.stopPropagation();
+            focusUnlockPanel();
+            return;
+          }
           if (!suppressSummaryClick) return;
           event.preventDefault();
           event.stopPropagation();
@@ -2297,6 +2495,7 @@ codex</code></pre>
 
         const label = group.querySelector(".nav-label");
         label.addEventListener("dblclick", (event) => {
+          if (group.matches("[data-premium-group='true']") && !isPremiumUnlocked()) return;
           event.preventDefault();
           event.stopPropagation();
           label.setAttribute("contenteditable", "true");
@@ -2321,6 +2520,7 @@ codex</code></pre>
       });
 
       const setActive = (id) => {
+        if (!isPremiumUnlocked() && document.getElementById(id)?.matches("[data-premium-section='true']")) return;
         navLinks.forEach((link) => {
           link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
         });
